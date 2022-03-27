@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "993956185904",
+    "project_id": "habitrix-d2a45",
+    "storage_bucket": "habitrix-d2a45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993956185904:android:210a51ae7da4a34bc5aaf5",
+        "android_client_info": {
+          "package_name": "com.magenta57.habitrix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993956185904-q4bvnua70isq54o8d886hib4bv1u010t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXmXeNdUSVU1rBdIyP5PksQxmADfZNrnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993956185904-q4bvnua70isq54o8d886hib4bv1u010t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
