@@ -39,6 +39,8 @@ class Body extends StatelessWidget {
               child: TextFormField(
                 cursorColor: Colors.green,
                 decoration: InputDecoration(
+                    hintText: 'example@mail.com',
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
@@ -65,7 +67,8 @@ class Body extends StatelessWidget {
                 cursorColor: Colors.green,
                 obscureText: true,
                 decoration: InputDecoration(
-
+                    hintText: 'password',
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                       borderSide: const BorderSide(color: Colors.lightGreenAccent, width: 2.0),
@@ -106,7 +109,7 @@ class Body extends StatelessWidget {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.symmetric(vertical : 10.0, horizontal: 10.0 ),
                         primary: Colors.white,
                         textStyle: const TextStyle(fontSize: 20),
 
