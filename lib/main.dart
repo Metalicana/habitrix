@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
+import 'package:habitrix/screens/home/homeScreen.dart';
 import 'package:habitrix/screens/register/registerScreen.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
 
       ),
-      home: RegisterScreen(),
+      home: HomeScreen(),
     );
   }
 }
