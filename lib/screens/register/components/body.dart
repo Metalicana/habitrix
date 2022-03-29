@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:habitrix/screens/login/components/background.dart';
+import 'package:habitrix/screens/register/components/background.dart';
 import 'package:habitrix/constants.dart';
+import 'package:habitrix/screens/login/loginScreen.dart';
 // import 'package:flutter_auth/Screens/Signup/signup_screen.dart';
 // import 'package:flutter_auth/components/already_have_an_account_acheck.dart';
 // import 'package:flutter_auth/components/rounded_button.dart';
@@ -20,19 +21,19 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              "Login to Habitrix",
+              "Create a new account",
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: kPrimaryColor,
-                  fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: kPrimaryColor,
+                fontSize: 20,
               ),
             ),
             SizedBox(height: size.height * 0.03),
             Image.asset(
-              "assets/images/business _ graph, chart, analytics, statistics, presentation, project, woman, people.png",
+              "assets/images/achievements _ accomplishment, target, mountain, top, flag, man, people, achievement.png",
               height: size.height * 0.35,
             ),
-           SizedBox(height: size.height * 0.03),
+            SizedBox(height: size.height * 0.03),
             Container(
               width: 300.0,
               child: TextFormField(
@@ -65,15 +66,15 @@ class Body extends StatelessWidget {
                 obscureText: true,
                 decoration: InputDecoration(
 
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                    borderSide: const BorderSide(color: Colors.lightGreenAccent, width: 2.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                    borderSide: const BorderSide(color: Colors.lightGreen, width: 2.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.lightGreenAccent, width: 2.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.lightGreen, width: 2.0),
 
-                  )
+                    )
 
                 ),
                 onSaved: (String? value) {
@@ -111,7 +112,7 @@ class Body extends StatelessWidget {
 
                       ),
                       onPressed: () {},
-                      child: const Text('Login'),
+                      child: const Text('Register'),
                     ),
                   ],
                 ),
@@ -123,13 +124,16 @@ class Body extends StatelessWidget {
                 textStyle: const TextStyle(fontSize: 14),
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                    MaterialPageRoute(builder: (context) => LoginScreen())
+                );
               },
               child: const Text(
-                  'Don\'t have an account? Register',
-                  style: TextStyle(
-                    color: Colors.green,
-                  ),
+                'Already have an account? Login',
+                style: TextStyle(
+                  color: Colors.green,
+                ),
               ),
             ),
 
