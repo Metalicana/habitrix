@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:habitrix/constants.dart';
+import 'package:habitrix/screens/login/loginScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'habitrix',
+      theme: ThemeData(
+        primaryColor: kPrimaryColor,
+        scaffoldBackgroundColor: kBackgroundColor,
 
+      ),
+      home: LoginScreen(),
     );
   }
 }
