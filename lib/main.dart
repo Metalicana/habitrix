@@ -6,15 +6,17 @@ import 'package:habitrix/screens/register/registerScreen.dart';
 import 'package:habitrix/services/auth.dart';
 import 'models/user.dart';
 import 'package:provider/provider.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:habitrix/models/task.dart';
+import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/boxes.dart';
 
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(TaskAdapter());
+  Hive.registerAdapter(HabitAdapter());
   await Hive.openBox<Task>(HiveBoxes.task);
+  await Hive.openBox<Task>(HiveBoxes.habit);
   runApp(const MyApp());
 }
 
