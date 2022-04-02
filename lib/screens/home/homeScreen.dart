@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.logout),
-              tooltip: 'Show Snackbar',
+              tooltip: 'logout',
               onPressed: () async {
                 await _auth.signOut();
               },
@@ -35,8 +35,9 @@ class HomeScreen extends StatelessWidget {
 
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              SizedBox(height: size.height * 0.1),
               const Text(
-                "Welcome to Habitrix!",
+                "Quantify, Organize, Evaluate",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: kPrimaryColor,
@@ -48,12 +49,16 @@ class HomeScreen extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Image.asset(
-                        "assets/images/business _ presentation, graph, chart, project, analytics, statistics, woman, people.png",
-                        height: size.height * 0.35,
-                        width: size.width * 0.4,
+                      Container(
 
+                        child: IconButton(
+
+                            onPressed: (){},
+                            iconSize: 180.0,
+                            icon: Image.asset('assets/images/business _ presentation, graph, chart, project, analytics, statistics, woman, people.png')
+                        ),
                       ),
+                      SizedBox(height: size.height * 0.04),
                       const Text(
                           'Manage your habits'
                       )
@@ -61,22 +66,26 @@ class HomeScreen extends StatelessWidget {
 
                   ),
 
-                  SizedBox(width: size.height * 0.095),
+                  SizedBox(width: size.height * 0.018),
                   Column(
                     children: <Widget>[
-                      Image.asset(
-
-                        "assets/images/e-commerce _ service, receipt, document, confirm, complete, checkmark, server, waiter.png",
-                        height: size.height * 0.35,
-                        width: size.width * 0.4,
+                      Container(
+                        child: IconButton(
+                            onPressed: (){},
+                            iconSize: 180.0,
+                            icon: Image.asset('assets/images/e-commerce _ service, receipt, document, confirm, complete, checkmark, server, waiter.png')
+                        ),
                       ),
+                      SizedBox(height: size.height * 0.04),
                       const Text(
                           'Track your tasks'
-                      )
+                      ),
+
                     ],
                   ),
 
                 ],
+
               ),
 
 

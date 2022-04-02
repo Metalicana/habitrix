@@ -1,5 +1,6 @@
 import 'package:habitrix/models/habitrixUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:habitrix/models/task.dart';
 
 class AuthService {
 
@@ -50,6 +51,16 @@ class AuthService {
       print(error.toString());
       return null;
     }
+  }
+
+  Stream<List<Task>> get tasks
+  {
+    DateTime date = DateTime(1999);
+    Task a = Task(taskId: '1202', taskName: 'Hello', deadline: date, importance: 5 ,difficulty:  5);
+    Task b = Task(taskId: '21', taskName: 'Hello', deadline: date, importance: 5 ,difficulty:  5);
+    Task c = Task(taskId: '413', taskName: 'Hello', deadline: date, importance: 5 ,difficulty:  5);
+    Stream<List<Task>> ok = [a,b,c] as Stream<List<Task>>;
+    return ok;
   }
 
 }
