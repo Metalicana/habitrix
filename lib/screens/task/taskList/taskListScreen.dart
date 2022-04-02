@@ -18,10 +18,20 @@ class TaskListScreen extends StatelessWidget {
     Task c = Task(taskId: '413', taskName: 'Play skyrim', deadline: date, importance: 5 ,difficulty:  5);
     return Container(
       child: Scaffold(
-        backgroundColor: Colors.brown[50],
+        backgroundColor: Color(0xFFf4f7f2),
         appBar: AppBar(
-          title: const Text('Tasks'),
-          toolbarHeight: 100,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(50.0),
+            ),
+          ),
+          title: const Text(
+              'Tasks',
+            style: TextStyle(
+              fontSize: 30.0,
+            )
+          ),
+          toolbarHeight: 220,
           backgroundColor: kPrimaryColor,
           actions: <Widget>[
             IconButton(
@@ -41,11 +51,21 @@ class TaskListScreen extends StatelessWidget {
               ),
             ),
             child : Column(
-              children: <StatefulWidget>[
-                TaskItem(task:a),
-                TaskItem(task:b),
-                TaskItem(task:c),
-              ],
+              children: <Column>[
+                Column(
+                  children: <Widget>[
+                    SizedBox(height: 20.0)
+                  ],
+                ),
+                Column(
+                  children: <StatefulWidget>[
+                    TaskItem(task:a),
+                    TaskItem(task:b),
+                    TaskItem(task:c),
+                  ],
+                )
+              ]
+
             )
         ),
         floatingActionButton: FloatingActionButton(

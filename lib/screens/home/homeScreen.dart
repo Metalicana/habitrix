@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:habitrix/screens/home/components/background.dart';
+import 'package:habitrix/screens/task/taskList/taskListScreen.dart';
 import 'package:habitrix/services/auth.dart';
 
 
@@ -14,8 +15,18 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Welcome to Habitrix'),
-          toolbarHeight: 100,
+          title: const Text(
+              'Habitrix',
+            style: TextStyle(
+              fontSize: 30.0
+            ),
+          ),
+          toolbarHeight: 220,
+          shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(50.0),
+          ),
+        ),
           backgroundColor: kPrimaryColor,
           actions: <Widget>[
             IconButton(
@@ -35,7 +46,7 @@ class HomeScreen extends StatelessWidget {
 
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: size.height * 0.1),
+              SizedBox(height: size.height * 0.05),
               const Text(
                 "Quantify, Organize, Evaluate",
                 style: TextStyle(
@@ -53,14 +64,20 @@ class HomeScreen extends StatelessWidget {
 
                         child: IconButton(
 
-                            onPressed: (){},
+                            onPressed: (){
+
+                            },
                             iconSize: 180.0,
                             icon: Image.asset('assets/images/business _ presentation, graph, chart, project, analytics, statistics, woman, people.png')
                         ),
                       ),
                       SizedBox(height: size.height * 0.04),
                       const Text(
-                          'Manage your habits'
+                          'Manage your habits',
+                          style: TextStyle(
+                            color: kPrimaryColor,
+                              fontSize: 15.0
+                          ),
                       )
                     ],
 
@@ -71,14 +88,23 @@ class HomeScreen extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         child: IconButton(
-                            onPressed: (){},
+                            onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => TaskListScreen()),
+                              );
+                            },
                             iconSize: 180.0,
                             icon: Image.asset('assets/images/e-commerce _ service, receipt, document, confirm, complete, checkmark, server, waiter.png')
                         ),
                       ),
                       SizedBox(height: size.height * 0.04),
                       const Text(
-                          'Track your tasks'
+                        'Track your tasks',
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontSize: 15.0
+                        ),
                       ),
 
                     ],
