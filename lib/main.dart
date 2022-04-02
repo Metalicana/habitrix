@@ -3,8 +3,9 @@ import 'package:habitrix/constants.dart';
 import 'package:habitrix/screens/home/homeScreen.dart';
 import 'package:habitrix/screens/login/loginScreen.dart';
 import 'package:habitrix/screens/register/registerScreen.dart';
+import 'package:habitrix/screens/wrapper.dart';
 import 'package:habitrix/services/auth.dart';
-import 'models/user.dart';
+import 'models/habitrixUser.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return StreamProvider<User>.value(
+    return StreamProvider<HabitrixUser>.value(
       value: AuthService().user,
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -26,9 +27,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: kBackgroundColor,
-
       ),
-        home: HomeScreen(),
+        home: Wrapper(),
       )
     );
   }
