@@ -20,6 +20,12 @@ class _TaskItemState extends State<TaskItem> {
       padding: const EdgeInsets.only(top: 8.0),
       child: Card(
         margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(25.0),
+            top : Radius.circular(25.0)
+          ),
+        ),
         child: ListTile(
           leading: IconButton(
             onPressed: (){
