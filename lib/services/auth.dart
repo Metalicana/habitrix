@@ -1,4 +1,4 @@
-import 'package:habitrix/models/user.dart';
+import 'package:habitrix/models/habitrixUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -6,12 +6,13 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // create user obj based on firebase user
-  User? _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+
+  HabitrixUser? _userFromFirebaseUser(FirebaseUser user) {
+    return user != null ? HabitrixUser(uid: user.uid) : null;
   }
 
   // auth change user stream
-  Stream<User?> get user {
+  Stream<HabitrixUser?> get user {
     return _auth.onAuthStateChanged
     //.map((FirebaseUser user) => _userFromFirebaseUser(user));
         .map(_userFromFirebaseUser);
