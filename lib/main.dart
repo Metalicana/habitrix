@@ -3,6 +3,7 @@ import 'package:habitrix/constants.dart';
 import 'package:habitrix/screens/home/homeScreen.dart';
 import 'package:habitrix/screens/login/loginScreen.dart';
 import 'package:habitrix/screens/register/registerScreen.dart';
+import 'package:habitrix/screens/task/taskAdd/taskAddForm.dart';
 import 'package:habitrix/screens/task/taskItem.dart';
 import 'package:habitrix/screens/task/taskList/taskList.dart';
 import 'package:habitrix/screens/task/taskList/taskListScreen.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: kBackgroundColor,
       ),
-        home: Wrapper(),
+        home: TaskAddForm(),
       )
     );
   }

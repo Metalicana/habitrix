@@ -12,7 +12,7 @@ class Background extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
-      height: size.height*0.6,
+      height: size.height*0.5,
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
