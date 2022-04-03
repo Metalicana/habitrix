@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: kBackgroundColor,
       ),
-        home: Wrapper(),
+        home: TaskAddForm(),
       )
     );
   }
