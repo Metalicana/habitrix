@@ -31,6 +31,7 @@ class _TaskItemState extends State<TaskItem> {
             onPressed: (){
               setState(() {
                 widget.checked = !widget.checked;
+                widget.task.delete();
               });
             },
             icon: Icon(
