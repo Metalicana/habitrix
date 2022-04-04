@@ -7,14 +7,14 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:habitrix/screens/task/taskList/components/background.dart';
 import 'package:intl/intl.dart';
 
-class TaskAddForm extends StatefulWidget {
-  const TaskAddForm({Key? key}) : super(key: key);
+class TaskEditForm extends StatefulWidget {
+  const TaskEditForm({Key? key}) : super(key: key);
 
   @override
-  _TaskAddFormState createState() => _TaskAddFormState();
+  _TaskEditFormState createState() => _TaskEditFormState();
 }
 
-class _TaskAddFormState extends State<TaskAddForm> {
+class _TaskEditFormState extends State<TaskEditForm> {
 
   final _formKey = GlobalKey<FormState>();
   String error = '';
@@ -36,7 +36,7 @@ class _TaskAddFormState extends State<TaskAddForm> {
           ),
         ),
         title: const Text(
-            'Add a new task',
+            'Edit current task',
             style: TextStyle(
               fontSize: 30.0,
             )
@@ -72,8 +72,8 @@ class _TaskAddFormState extends State<TaskAddForm> {
                           decoration: InputDecoration(
                               hintText: 'Task name',
                               icon: Icon(
-                                  Icons.edit,
-                                  color: Colors.grey,
+                                Icons.edit,
+                                color: Colors.grey,
 
                               ),
                               contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -99,51 +99,51 @@ class _TaskAddFormState extends State<TaskAddForm> {
                       ),
                       SizedBox(height: size.height * 0.01),
                       Container(
-                      width: 300.0,
-                      child: TextFormField(
-                        cursorColor: Colors.green,
-                        decoration: InputDecoration(
-                            hintText: deadline == null ? 'Deadline' : DateFormat('MM/dd kk:ss').format(deadline!),
-                            icon: Icon(
+                        width: 300.0,
+                        child: TextFormField(
+                          cursorColor: Colors.green,
+                          decoration: InputDecoration(
+                              hintText: deadline == null ? 'Deadline' : DateFormat('MM/dd kk:ss').format(deadline!),
+                              icon: Icon(
                                 Icons.calendar_today_outlined,
                                 color: Colors.grey,
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                              borderSide: const BorderSide(color: Colors.lightGreen, width: 2.0),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: const BorderSide(color: Colors.lightGreen, width: 2.0),
 
-                            )
-                        ),
+                              )
+                          ),
 
-                        onTap: (){
-                          DatePicker.showDatePicker(context,
-                              showTitleActions: true,
-                              minTime: DateTime(2018,2,5),
-                              onChanged: (date) {
-                                print('change $date');
-                              }, onConfirm: (date) {
-                                setState(() {
-                                  deadline = date;
-                                  DatePicker.showTimePicker(context,
-                                      showTitleActions: true,
-                                      onChanged: (date) {
-                                        print('change $date');
-                                      }, onConfirm: (date) {
-                                        setState(() {
-                                          DateTime temp = date;
-                                          deadline = DateTime(deadline!.year,deadline!.month,deadline!.day,date.hour,date.minute,date.second);
+                          onTap: (){
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime(2018,2,5),
+                                onChanged: (date) {
+                                  print('change $date');
+                                }, onConfirm: (date) {
+                                  setState(() {
+                                    deadline = date;
+                                    DatePicker.showTimePicker(context,
+                                        showTitleActions: true,
+                                        onChanged: (date) {
+                                          print('change $date');
+                                        }, onConfirm: (date) {
+                                          setState(() {
+                                            DateTime temp = date;
+                                            deadline = DateTime(deadline!.year,deadline!.month,deadline!.day,date.hour,date.minute,date.second);
 
 
-                                        });
-                                        print('confirm $date');
-                                      }, currentTime: DateTime.now(), locale: LocaleType.en);
-                                });
-                                print('confirm $date');
-                              }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                          });
+                                          print('confirm $date');
+                                        }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                  });
+                                  print('confirm $date');
+                                }, currentTime: DateTime.now(), locale: LocaleType.en);
                           },
                           onSaved: (String? value) {
                             // This optional block of code can be used to run
@@ -194,21 +194,21 @@ class _TaskAddFormState extends State<TaskAddForm> {
                             Navigator.pop(context);
                           },
                           child: Container(
-                            width: 300.0,
-                            height: 50.0,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30.0),
-                              color: kPrimaryColor,
+                              width: 300.0,
+                              height: 50.0,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30.0),
+                                color: kPrimaryColor,
 
-                            ),
-                            child: Text(
+                              ),
+                              child: Text(
                                 'Add task to list',
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0
+                                    color: Colors.white,
+                                    fontSize: 20.0
                                 ),
-                            )
+                              )
                           )
                       )
 
