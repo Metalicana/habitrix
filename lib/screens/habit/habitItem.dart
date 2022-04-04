@@ -46,7 +46,7 @@ class _HabitItemState extends State<HabitItem> {
 
               },
               icon: Icon(
-                widget.checked ? Icons.delete  : Icons.delete_forever,
+                widget.checked ? Icons.add  : Icons.add_box_rounded,
                 color: kPrimaryColor,
               )
           ),

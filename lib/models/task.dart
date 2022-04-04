@@ -4,7 +4,7 @@ part 'task.g.dart';
 @HiveType(typeId: 0)
 class Task extends HiveObject {
   @HiveField(0)
-  String taskId;
+  String? taskId;
 
   @HiveField(1)
   String taskName;
@@ -18,7 +18,7 @@ class Task extends HiveObject {
   @HiveField(4)
   int importance;
 
-  Task({required this.taskId, required this.taskName, required this.deadline, required this.difficulty, required this.importance});
+  Task({ required this.taskName, required this.deadline, required this.difficulty, required this.importance});
 
 
 }

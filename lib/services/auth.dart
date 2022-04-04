@@ -53,14 +53,5 @@ class AuthService {
     }
   }
 
-  Stream<List<Task>> get tasks
-  {
-    DateTime date = DateTime(1999);
-    Task a = Task(taskId: '1202', taskName: 'Hello', deadline: date, importance: 5 ,difficulty:  5);
-    Task b = Task(taskId: '21', taskName: 'Hello', deadline: date, importance: 5 ,difficulty:  5);
-    Task c = Task(taskId: '413', taskName: 'Hello', deadline: date, importance: 5 ,difficulty:  5);
-    Stream<List<Task>> ok = [a,b,c] as Stream<List<Task>>;
-    return ok;
-  }
 
 }
