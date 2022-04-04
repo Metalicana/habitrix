@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/models/task.dart';
+import 'package:habitrix/screens/task/taskAdd/taskAddForm.dart';
 import 'package:habitrix/screens/task/taskList/taskList.dart';
 import 'package:habitrix/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -71,7 +72,12 @@ class TaskListScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
             backgroundColor: kPrimaryColor,
             child: const Icon(Icons.add),
-            onPressed: (){}
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TaskAddForm()),
+              );
+            }
         ),
       ),
     );
