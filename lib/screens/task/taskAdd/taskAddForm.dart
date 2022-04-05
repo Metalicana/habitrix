@@ -213,7 +213,7 @@ class _TaskAddFormState extends State<TaskAddForm> {
 
                             ),
                             child: Text(
-                                'Add task to list',
+                                'Add new task',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20.0

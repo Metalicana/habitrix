@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:habitrix/models/task.dart';
+import 'package:habitrix/screens/task/taskEdit/taskEditForm.dart';
 import 'package:intl/intl.dart';
 
 class TaskItem extends StatefulWidget {
@@ -18,30 +19,38 @@ class _TaskItemState extends State<TaskItem> {
 
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
-      child: Card(
-        margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(25.0),
-            top : Radius.circular(25.0)
+      child: GestureDetector(
+        onTap: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  TaskEditForm(task: widget.task)),
+          );
+        },
+        child: Card(
+          margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(25.0),
+              top : Radius.circular(25.0)
+            ),
           ),
-        ),
-        child: ListTile(
-          leading: IconButton(
-            onPressed: (){
-              setState(() {
-                widget.checked = !widget.checked;
-                widget.task.delete();
-              });
-            },
-            icon: Icon(
-                widget.checked ? Icons.check_box_outlined: Icons.check_box_outline_blank_rounded,
-                color: kPrimaryColor,
-            )
+          child: ListTile(
+            leading: IconButton(
+              onPressed: (){
+                setState(() {
+                  widget.checked = !widget.checked;
+                  widget.task.delete();
+                });
+              },
+              icon: Icon(
+                  widget.checked ? Icons.check_box_outlined: Icons.check_box_outline_blank_rounded,
+                  color: kPrimaryColor,
+              )
 
+            ),
+            title: Text(widget.task.taskName),
+            subtitle: Text(DateFormat('MM/dd  kk:mm').format(widget.task.deadline)),
           ),
-          title: Text(widget.task.taskName),
-          subtitle: Text(DateFormat('MM/dd  kk:mm').format(widget.task.deadline)),
         ),
       ),
     );
