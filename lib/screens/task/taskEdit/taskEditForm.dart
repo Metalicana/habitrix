@@ -4,12 +4,16 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:habitrix/models/task.dart';
 import 'package:habitrix/screens/task/taskList/components/background.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
-class TaskEditForm extends StatefulWidget {
-  const TaskEditForm({Key? key}) : super(key: key);
+import '../../../boxes.dart';
 
+class TaskEditForm extends StatefulWidget {
+  final Task task;
+  TaskEditForm({required this.task});
   @override
   _TaskEditFormState createState() => _TaskEditFormState();
 }
@@ -23,8 +27,18 @@ class _TaskEditFormState extends State<TaskEditForm> {
   String email = '';
   String password = '';
   DateTime ?deadline = null;
-  double importance = 20;
-  double difficulty = 20;
+  double ?importance = null;
+  double ?difficulty = null;
+  String ? name = null;
+  validated() {
+    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+      _onFormSubmit();
+      print("Form Validated");
+    } else {
+      print("Form Not Validated");
+      return;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -70,7 +84,7 @@ class _TaskEditFormState extends State<TaskEditForm> {
 
                           cursorColor: Colors.green,
                           decoration: InputDecoration(
-                              hintText: 'Task name',
+                              hintText: widget.task.taskName,
                               icon: Icon(
                                 Icons.edit,
                                 color: Colors.grey,
@@ -88,13 +102,13 @@ class _TaskEditFormState extends State<TaskEditForm> {
 
                           ),
                           onChanged: (val) {
-                            setState(() => email = val);
+                            setState(() => name = val);
                           },
                           onSaved: (String? value) {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.isEmpty ? 'Task name is required' : null,
+                          validator: (val) =>  null,
                         ),
                       ),
                       SizedBox(height: size.height * 0.01),
@@ -103,7 +117,7 @@ class _TaskEditFormState extends State<TaskEditForm> {
                         child: TextFormField(
                           cursorColor: Colors.green,
                           decoration: InputDecoration(
-                              hintText: deadline == null ? 'Deadline' : DateFormat('MM/dd kk:ss').format(deadline!),
+                              hintText: deadline == null ? DateFormat('MM/dd kk:ss').format(widget.task.deadline) : DateFormat('MM/dd kk:ss').format(deadline!),
                               icon: Icon(
                                 Icons.calendar_today_outlined,
                                 color: Colors.grey,
@@ -149,20 +163,20 @@ class _TaskEditFormState extends State<TaskEditForm> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.isEmpty ? 'Enter non-empty task name' : null,
+                          validator: (val) =>  null,
                         ),
                       ),
                       SizedBox(height:10.0),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 40.0),
                         child: Slider(
-                          value: importance,
+                          value: importance==null? widget.task.importance.toDouble():importance!,
 
                           activeColor: kPrimaryColor,
                           inactiveColor: Color(0xffd1dec9),
                           max: 100,
                           divisions: 10,
-                          label:'Importance level ' + importance.round().toString(),
+                          label:'Importance level ' + (importance == null ? widget.task.importance.round().toString():importance!.round().toString()),
                           onChanged: (double value) {
                             setState(() {
                               importance = value;
@@ -174,13 +188,13 @@ class _TaskEditFormState extends State<TaskEditForm> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 40.0),
                         child: Slider(
-                          value: difficulty,
+                          value: difficulty==null? widget.task.difficulty.toDouble():difficulty!,
 
                           activeColor: kPrimaryColor,
                           inactiveColor: Color(0xffd1dec9),
                           max: 100,
                           divisions: 10,
-                          label:'Difficulty level ' + difficulty.round().toString(),
+                          label:'Difficulty level ' + (difficulty == null ? widget.task.difficulty.round().toString():difficulty!.round().toString()),
                           onChanged: (double value) {
                             setState(() {
                               difficulty = value;
@@ -191,6 +205,7 @@ class _TaskEditFormState extends State<TaskEditForm> {
                       TextButton(
                           onPressed: (){
                             //validate and pop
+                            validated();
                             Navigator.pop(context);
                           },
                           child: Container(
@@ -203,7 +218,7 @@ class _TaskEditFormState extends State<TaskEditForm> {
 
                               ),
                               child: Text(
-                                'Add task to list',
+                                'Submit changes',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20.0
@@ -223,6 +238,20 @@ class _TaskEditFormState extends State<TaskEditForm> {
         ),
       ),
     );
+  }
+  void _onFormSubmit()
+  {
+    Box<Task> taskBox = Hive.box<Task>(HiveBoxes.task);
+    taskBox.add(
+        Task(
+          taskName: name==null ? widget.task.taskName : name!,
+          deadline: deadline==null? widget.task.deadline : deadline!,
+          difficulty: difficulty==null? widget.task.difficulty:difficulty!.round(),
+          importance: importance==null? widget.task.importance:importance!.round(),
+        )
+    );
+    widget.task.delete();
+
   }
 }
 
