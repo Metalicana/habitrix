@@ -17,11 +17,12 @@ class TaskList extends StatefulWidget {
 class _TaskListState extends State<TaskList> {
   @override
   Widget build(BuildContext context) {
-
+    var tasks = widget.box.values.toList();
+    tasks.sort();
     return ListView.builder(
       itemCount: widget.box.values.length,
       itemBuilder: (context, index){
-        Task? task = widget.box.getAt(index);
+        Task? task = tasks[index];
         return TaskItem(task: task!);
       },
     );
