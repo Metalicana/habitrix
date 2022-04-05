@@ -12,5 +12,29 @@ class HabitEntry extends HiveObject {
   @HiveField(2)
   double entryAmount;
 
+  String get getHabitId{
+    return habitId;
+  }
+
+  DateTime get getEntryDate{
+    return entryDate;
+  }
+
+  double get getEntryAmount{
+    return entryAmount;
+  }
+
+  set setHabitId(String newId){
+    habitId = newId;
+  }
+
+  set setEntryDate(DateTime newDate){
+    entryDate = newDate;
+  }
+
+  set setEntryAmount(double newAmount){
+    entryAmount = newAmount;
+  }
+
   HabitEntry({required this.habitId, required this.entryDate, required this.entryAmount});
 }

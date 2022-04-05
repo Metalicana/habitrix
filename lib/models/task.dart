@@ -18,6 +18,47 @@ class Task extends HiveObject {
   @HiveField(4)
   int importance;
 
+  String? get getTaskId{
+    return taskId;
+  }
+
+  String get getTaskName{
+    return taskName;
+  }
+
+  DateTime get getDeadline{
+    return deadline;
+  }
+
+
+  int get getDifficulty{
+    return difficulty;
+  }
+
+  int get getImportance{
+    return importance;
+  }
+
+  set setTaskId(String? newId){
+    taskId = newId;
+  }
+
+  set setTaskName(String newName){
+    taskName = newName;
+  }
+
+  set setDeadline(DateTime newDeadline){
+    deadline = newDeadline;
+  }
+
+  set setImportance(int newImportance){
+    importance = newImportance;
+  }
+
+  set setDifficulty(int newDifficulty){
+    difficulty = newDifficulty;
+  }
+
   Task({ required this.taskName, required this.deadline, required this.difficulty, required this.importance});
 
 
