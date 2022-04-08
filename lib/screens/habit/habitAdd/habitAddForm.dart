@@ -4,9 +4,15 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/screens/task/taskList/components/background.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
+
+import '../../../boxes.dart';
 
 class HabitAddForm extends StatefulWidget {
   const HabitAddForm({Key? key}) : super(key: key);
@@ -21,12 +27,21 @@ class _HabitAddFormState extends State<HabitAddForm> {
   String error = '';
   bool loading = false;
   // text field state
-  String email = '';
-  String password = '';
+  String name = '';
+  String unit = '';
   DateTime ?deadline = null;
   double importance = 20;
   double difficulty = 20;
   String dropdownValue = 'good';
+  validated() {
+    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+      _onFormSubmit();
+      print("Form Validated");
+    } else {
+      print("Form Not Validated");
+      return;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -90,7 +105,7 @@ class _HabitAddFormState extends State<HabitAddForm> {
 
                           ),
                           onChanged: (val) {
-                            setState(() => email = val);
+                            setState(() => name = val);
                           },
                           onSaved: (String? value) {
                             // This optional block of code can be used to run
@@ -124,7 +139,7 @@ class _HabitAddFormState extends State<HabitAddForm> {
 
                           ),
                           onChanged: (val) {
-                            setState(() => email = val);
+                            setState(() => unit = val);
                           },
                           onSaved: (String? value) {
                             // This optional block of code can be used to run
@@ -183,6 +198,7 @@ class _HabitAddFormState extends State<HabitAddForm> {
                       TextButton(
                           onPressed: (){
                             //validate and pop
+                            validated();
                             Navigator.pop(context);
                           },
                           child: Container(
@@ -215,6 +231,23 @@ class _HabitAddFormState extends State<HabitAddForm> {
         ),
       ),
     );
+  }
+  String hashID()
+  {
+    //hash name and timestamp
+    var timestamp = utf8.encode(DateTime.now().toString());
+    var nameHash = utf8.encode(name);
+    var digest = sha256.convert(nameHash + timestamp);
+    // print("Digest as bytes: ${digest.bytes}");
+    // print("Digest as hex string: $digest");
+    // print(digest.toString());
+    return digest.toString();
+  }
+  void _onFormSubmit()
+  {
+    Box<Habit> habitBox = Hive.box<Habit>(HiveBoxes.habit);
+    String habitId = hashID();
+    habitBox.add(Habit(habitId: habitId,habitName: name, type: dropdownValue, unit: unit ));
   }
 }
 

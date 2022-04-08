@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/task.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../habitItem.dart';
 import 'components/background.dart';
 
 class HabitList extends StatefulWidget {
-  const HabitList({Key? key}) : super(key: key);
+  late final Box<Habit> box;
+  HabitList({required this.box });
+
 
   @override
   _HabitListState createState() => _HabitListState();
@@ -17,12 +20,12 @@ class HabitList extends StatefulWidget {
 class _HabitListState extends State<HabitList> {
   @override
   Widget build(BuildContext context) {
-    final habits = Provider.of<List<Habit>>(context) ?? [];
-
+    var habits = widget.box.values.toList();
     return ListView.builder(
-      itemCount: habits.length,
+      itemCount: widget.box.values.length,
       itemBuilder: (context, index){
-        return HabitItem(habit: habits[index]);
+        Habit? habit = habits[index];
+        return HabitItem(habit: habit!);
       },
     );
   }

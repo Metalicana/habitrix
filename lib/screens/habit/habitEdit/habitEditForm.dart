@@ -4,9 +4,14 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/screens/task/taskList/components/background.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
+import '../../../boxes.dart';
 
 class HabitEditForm extends StatefulWidget {
   const HabitEditForm({Key? key}) : super(key: key);
@@ -21,12 +26,22 @@ class _HabitEditFormState extends State<HabitEditForm> {
   String error = '';
   bool loading = false;
   // text field state
-  String email = '';
+  String name = '';
+  String unit = '';
   String password = '';
   DateTime ?deadline = null;
   double importance = 20;
   double difficulty = 20;
   String dropdownValue = 'good';
+  validated() {
+    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+      _onFormSubmit();
+      print("Form Validated");
+    } else {
+      print("Form Not Validated");
+      return;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -90,13 +105,13 @@ class _HabitEditFormState extends State<HabitEditForm> {
 
                           ),
                           onChanged: (val) {
-                            setState(() => email = val);
+                            setState(() => name = val);
                           },
                           onSaved: (String? value) {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.isEmpty ? 'Task name is required' : null,
+                          validator: (val) => val!.isEmpty ? 'Habit name is required' : null,
                         ),
                       ),
                       SizedBox(height: size.height * 0.03),
@@ -124,13 +139,13 @@ class _HabitEditFormState extends State<HabitEditForm> {
 
                           ),
                           onChanged: (val) {
-                            setState(() => email = val);
+                            setState(() => unit = val);
                           },
                           onSaved: (String? value) {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.isEmpty ? 'Task name is required' : null,
+                          validator: (val) => val!.isEmpty ? 'Unit is required' : null,
                         ),
                       ),
                       SizedBox(height: size.height * 0.03),
@@ -183,6 +198,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
                       TextButton(
                           onPressed: (){
                             //validate and pop
+                            validated();
                             Navigator.pop(context);
                           },
                           child: Container(
@@ -215,6 +231,23 @@ class _HabitEditFormState extends State<HabitEditForm> {
         ),
       ),
     );
+  }
+  String hashID()
+  {
+    //hash name and timestamp
+    var timestamp = utf8.encode(DateTime.now().toString());
+    var nameHash = utf8.encode(name);
+    var digest = sha256.convert(nameHash + timestamp);
+    print("Digest as bytes: ${digest.bytes}");
+    print("Digest as hex string: $digest");
+
+    return "";
+  }
+  void _onFormSubmit()
+  {
+    Box<Habit> habitBox = Hive.box<Habit>(HiveBoxes.habit);
+    String g = hashID();
+    //habitBox.add(Habit(taskName: name, deadline: deadline!, difficulty: difficulty!.round(), importance: importance!.round(), ));
   }
 }
 
