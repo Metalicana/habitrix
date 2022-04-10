@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:expansion_card/expansion_card.dart';
 
 import 'habitEdit/habitEditForm.dart';
+import 'habitEntry/habitEntryForm.dart';
 
 class HabitItem extends StatefulWidget {
   final Habit habit;
@@ -57,7 +58,12 @@ class _HabitItemState extends State<HabitItem> {
               'Habit type: ' + widget.habit.type + ' Unit: ' + widget.habit.unit
             ),
             trailing : IconButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>  HabitEntryForm(habit: widget.habit)),
+                    );
+                  },
                   icon: Icon(Icons.add)
                 ),
             // trailing: Row(
