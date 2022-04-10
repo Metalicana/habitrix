@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:habitrix/screens/habit/habitAdd/habitAddForm.dart';
+import 'package:habitrix/screens/habit/habitEdit/habitEditForm.dart';
 import 'package:habitrix/screens/home/homeScreen.dart';
 import 'package:habitrix/screens/login/loginScreen.dart';
 import 'package:habitrix/screens/register/registerScreen.dart';
