@@ -21,11 +21,6 @@ class HabitListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
-
-    Habit x = Habit(habitId: '123', habitName: 'Running', type: 'good', unit: 'kilometers');
-    Habit y = Habit(habitId: '1223', habitName: 'Smoking', type: 'bad', unit: 'cigarettes');
-    Habit z = Habit(habitId: '1231', habitName: 'Reading', type: 'good', unit: 'minutes');
     return Container(
       child: Scaffold(
         backgroundColor: Color(0xFFf4f7f2),
@@ -43,15 +38,7 @@ class HabitListScreen extends StatelessWidget {
           ),
           toolbarHeight: 220,
           backgroundColor: kPrimaryColor,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.logout),
-              tooltip: 'logout',
-              onPressed: () async {
-                await _auth.signOut();
-              },
-            ),
-          ],
+
         ),
     body: ValueListenableBuilder(
           valueListenable: Hive.box<Habit>(HiveBoxes.habit).listenable(),

@@ -57,15 +57,7 @@ class _TaskEditFormState extends State<TaskEditForm> {
         ),
         toolbarHeight: 220,
         backgroundColor: kPrimaryColor,
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'logout',
-            onPressed: ()  {
 
-            },
-          ),
-        ],
       ),
       body: Background(
 

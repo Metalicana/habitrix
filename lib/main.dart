@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: kBackgroundColor,
       ),
-        home: HabitListScreen(),
+        home: Wrapper(),
       )
     );
   }
