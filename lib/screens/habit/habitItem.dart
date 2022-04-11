@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/task.dart';
+import 'package:habitrix/screens/visualize/visualizationScreen.dart';
 import 'package:intl/intl.dart';
 import 'package:expansion_card/expansion_card.dart';
 
@@ -44,6 +45,10 @@ class _HabitItemState extends State<HabitItem> {
                 onPressed: (){
                   setState(() {
                     widget.checked = !widget.checked;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>  VisualizationScreen(habit: widget.habit)),
+                    );
                   });
 
                 },
