@@ -1,8 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/task.dart';
 import 'package:intl/intl.dart';
+import 'package:expansion_card/expansion_card.dart';
+
+import 'habitEdit/habitEditForm.dart';
+import 'habitEntry/habitEntryForm.dart';
 
 class HabitItem extends StatefulWidget {
   final Habit habit;
@@ -19,40 +24,61 @@ class _HabitItemState extends State<HabitItem> {
 
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
-      child: Card(
-        margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(25.0),
-              top : Radius.circular(25.0)
+      child: GestureDetector(
+        onTap: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  HabitEditForm(habit: widget.habit)),
+          );
+        },
+        child: Card(
+          margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(25.0),
+                top : Radius.circular(25.0)
+            ),
           ),
-        ),
-        child: ListTile(
-          leading: IconButton(
-              onPressed: (){
-                setState(() {
-                  widget.checked = !widget.checked;
-                });
-              },
-              icon: Icon(
-                widget.checked ? Icons.bar_chart  : Icons.bar_chart_outlined,
-                color: kPrimaryColor,
-              )
+          child: ListTile(
+            leading: IconButton(
+                onPressed: (){
+                  setState(() {
+                    widget.checked = !widget.checked;
+                  });
 
-          ),
-          trailing: IconButton(
-              onPressed: ()
-              {
+                },
+                icon: Icon(
+                  widget.checked ? Icons.bar_chart  : Icons.bar_chart_outlined,
+                  color: kPrimaryColor,
+                )
 
-              },
-              icon: Icon(
-                widget.checked ? Icons.add  : Icons.add_box_rounded,
-                color: kPrimaryColor,
-              )
-          ),
-          title: Text(widget.habit.habitName),
-          subtitle: Text(
-            'Habit type: ' + widget.habit.type + ' Unit: ' + widget.habit.unit
+            ),
+            title: Text(widget.habit.habitName),
+            subtitle: Text(
+              'Habit type: ' + widget.habit.type + ' Unit: ' + widget.habit.unit
+            ),
+            trailing : IconButton(
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>  HabitEntryForm(habit: widget.habit)),
+                    );
+                  },
+                  icon: Icon(Icons.add)
+                ),
+            // trailing: Row(
+            //   children: <Widget>[
+            //     IconButton(
+            //       onPressed: (){},
+            //       icon: Icon(Icons.add)
+            //     ),
+            //     SizedBox(width: 10.0,),
+            //     IconButton(
+            //         onPressed: (){},
+            //         icon: Icon(Icons.add)
+            //     ),
+            //   ],
+            // ),
           ),
         ),
       ),
@@ -60,31 +86,49 @@ class _HabitItemState extends State<HabitItem> {
   }
 }
 
-// class TaskItem extends StatelessWidget {
-//   final Task task;
-//   TaskItem({ required this.task });
-//
+
+
+// class _HabitItemState extends State<HabitItem> {
 //   @override
 //   Widget build(BuildContext context) {
-//     bool checked = false;
+//
 //     return Padding(
 //       padding: const EdgeInsets.only(top: 8.0),
 //       child: Card(
 //         margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-//         child: ListTile(
-//           leading: IconButton(
-//             onPressed: (){
-//
-//             },
-//             icon: Icon(
-//                 Icons.check_box_outline_blank_rounded,
-//                 color: kPrimaryColor,
-//             )
-//
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.vertical(
+//               bottom: Radius.circular(25.0),
+//               top : Radius.circular(25.0)
 //           ),
-//           title: Text(task.taskName),
-//           subtitle: Text(DateFormat('MM/dd  kk:mm').format(task.deadline)),
 //         ),
+//         child: ExpansionCard(
+//           title: Container(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: <Widget>[
+//                 Text(
+//                   widget.habit.habitName,
+//                   style: TextStyle(
+//                     fontSize: 25,
+//                     color: Colors.black,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           children: <Widget>[
+//             Container(
+//               margin: EdgeInsets.symmetric(horizontal: 10),
+//               child: Text("Content goes over here !",
+//                   style: TextStyle(
+//                       fontFamily: 'BalooBhai',
+//                       fontSize: 15,
+//                       color: Colors.black)),
+//             )
+//           ],
+//         )
 //       ),
 //     );
 //   }

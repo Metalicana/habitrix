@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
+import 'package:habitrix/screens/habit/habitList/habitListScreen.dart';
 import 'package:habitrix/screens/home/components/background.dart';
 import 'package:habitrix/screens/task/taskList/taskListScreen.dart';
 import 'package:habitrix/services/auth.dart';
@@ -65,7 +66,10 @@ class HomeScreen extends StatelessWidget {
                         child: IconButton(
 
                             onPressed: (){
-
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>  HabitListScreen()),
+                              );
                             },
                             iconSize: 180.0,
                             icon: Image.asset('assets/images/business _ presentation, graph, chart, project, analytics, statistics, woman, people.png')

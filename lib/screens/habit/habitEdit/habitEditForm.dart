@@ -14,7 +14,8 @@ import 'dart:convert';
 import '../../../boxes.dart';
 
 class HabitEditForm extends StatefulWidget {
-  const HabitEditForm({Key? key}) : super(key: key);
+  final Habit habit;
+  HabitEditForm({required this.habit});
 
   @override
   _HabitEditFormState createState() => _HabitEditFormState();
@@ -28,11 +29,9 @@ class _HabitEditFormState extends State<HabitEditForm> {
   // text field state
   String name = '';
   String unit = '';
-  String password = '';
-  DateTime ?deadline = null;
   double importance = 20;
   double difficulty = 20;
-  String dropdownValue = 'good';
+  String dropdownValue = '';
   validated() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _onFormSubmit();
@@ -60,15 +59,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
         ),
         toolbarHeight: 220,
         backgroundColor: kPrimaryColor,
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'logout',
-            onPressed: ()  {
 
-            },
-          ),
-        ],
       ),
       body: Background(
 
@@ -87,7 +78,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
 
                           cursorColor: Colors.green,
                           decoration: InputDecoration(
-                              hintText: 'Habit name',
+                              hintText: name=='' ? widget.habit.habitName : name,
                               icon: Icon(
                                 Icons.edit,
                                 color: Colors.grey,
@@ -114,6 +105,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
                           validator: (val) => val!.isEmpty ? 'Habit name is required' : null,
                         ),
                       ),
+                      SizedBox(height:10.0),
                       SizedBox(height: size.height * 0.03),
                       Container(
                         width: 300.0,
@@ -121,7 +113,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
 
                           cursorColor: Colors.green,
                           decoration: InputDecoration(
-                              hintText: 'Habit unit',
+                              hintText: unit == '' ? widget.habit.unit : unit,
                               icon: Icon(
                                 Icons.linear_scale,
                                 color: Colors.grey,
@@ -145,7 +137,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.isEmpty ? 'Unit is required' : null,
+                          validator: (val) => val!.isEmpty ? 'Task name is required' : null,
                         ),
                       ),
                       SizedBox(height: size.height * 0.03),
@@ -166,7 +158,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
                           Container(
                             width: 220.0,
                             child: DropdownButton<String>(
-                              value: dropdownValue,
+                              value: dropdownValue=='' ? widget.habit.type : dropdownValue,
                               isExpanded: true,
                               icon: const Icon(Icons.arrow_downward),
                               elevation: 16,
@@ -211,7 +203,31 @@ class _HabitEditFormState extends State<HabitEditForm> {
 
                               ),
                               child: Text(
-                                'Add habit to list',
+                                'Edit habit name',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0
+                                ),
+                              )
+                          )
+                      ),
+                      SizedBox(height:10.0),
+                      TextButton(
+                          onPressed: (){
+                            widget.habit.delete();
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                              width: 300.0,
+                              height: 50.0,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30.0),
+                                color: Colors.red[400],
+
+                              ),
+                              child: Text(
+                                'Delete this habit',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20.0
@@ -246,8 +262,16 @@ class _HabitEditFormState extends State<HabitEditForm> {
   void _onFormSubmit()
   {
     Box<Habit> habitBox = Hive.box<Habit>(HiveBoxes.habit);
-    String g = hashID();
-    //habitBox.add(Habit(taskName: name, deadline: deadline!, difficulty: difficulty!.round(), importance: importance!.round(), ));
+    String hashID = widget.habit.habitId;
+    habitBox.add(
+        Habit(
+          habitId: hashID,
+          habitName: name=='' ? widget.habit.habitName : name,
+          unit: unit == '' ? widget.habit.unit  : unit,
+          type: dropdownValue == '' ? widget.habit.type : dropdownValue,
+        )
+    );
+    widget.habit.delete();
   }
 }
 

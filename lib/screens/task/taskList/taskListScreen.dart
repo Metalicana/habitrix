@@ -37,15 +37,7 @@ class TaskListScreen extends StatelessWidget {
           ),
           toolbarHeight: 220,
           backgroundColor: kPrimaryColor,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.logout),
-              tooltip: 'logout',
-              onPressed: () async {
-                await _auth.signOut();
-              },
-            ),
-          ],
+
         ),
         body: ValueListenableBuilder(
           valueListenable: Hive.box<Task>(HiveBoxes.task).listenable(),
