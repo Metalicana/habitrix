@@ -47,7 +47,7 @@ class _HabitItemState extends State<HabitItem> {
                     widget.checked = !widget.checked;
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) =>  VisualizationScreen(habit: widget.habit)),
+                      MaterialPageRoute(builder: (context) =>  VisualizationScreen(widget.habit)),
                     );
                   });
 

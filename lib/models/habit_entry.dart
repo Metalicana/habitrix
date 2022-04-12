@@ -67,7 +67,7 @@ class HabitEntry extends HiveObject {
   int daysBetween(DateTime from, DateTime to) {
     from = DateTime(from.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);
-    return (to.difference(from).inHours / 24).round();
+    return (from.difference(to).inHours / 24).round();
   }
 
   /// Calculates number of weeks for a given year as per https://en.wikipedia.org/wiki/ISO_week_date#Weeks_per_year
@@ -97,12 +97,13 @@ class HabitEntry extends HiveObject {
       }
     int differenceInDays = daysBetween(now, start);
     List<HabitEntry> relevantEntries = allEntriesList();
-    List<double> recordsList = List<double>.filled(differenceInDays, 0);
+    List<double> recordsList = List<double>.filled(differenceInDays+5, 0);
+    //print(differenceInDays);
     for(HabitEntry currentEntry in relevantEntries){
         DateTime currentEntryDate = currentEntry.getEntryDate;
         differenceInDays = daysBetween(now,currentEntryDate);
         recordsList[differenceInDays]+=currentEntry.getEntryAmount;
-      }
+    }
     return recordsList;
   }
 
