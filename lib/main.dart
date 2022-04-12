@@ -19,6 +19,7 @@ import 'package:habitrix/models/task.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/habit_entry.dart';
 import 'package:habitrix/boxes.dart';
+import 'package:habitrix/screens/visualize/test.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: kBackgroundColor,
       ),
-        home: HabitListScreen(),
+        home: Wrapper(),
       )
     );
   }
