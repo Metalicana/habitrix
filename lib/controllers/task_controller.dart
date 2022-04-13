@@ -4,21 +4,21 @@ import 'package:hive/hive.dart';
 import '../boxes.dart';
 
 class TaskController{
-  List<Task> taskList = List.empty();
+  List<Task> _taskList = List.empty();
 
   TaskController(){
-    taskList = Hive.box<Task>(HiveBoxes.task).values.toList();
+    _taskList = Hive.box<Task>(HiveBoxes.task).values.toList();
   }
 
   void addTask(Task task){
     Box<Task> taskBox = Hive.box<Task>(HiveBoxes.task);
     taskBox.add(task);
-    taskList.add(task);
+    _taskList.add(task);
   }
 
   void removeTask(Task task){
     task.delete();
-    taskList.remove(task);
+    _taskList.remove(task);
   }
 
   void editTask(Task oldTask, Task editedTask){
@@ -29,16 +29,16 @@ class TaskController{
   void sortTasks(){
     List<Task> listOfTasks = Hive.box<Task>(HiveBoxes.task).values.toList();
     listOfTasks.sort();
-    taskList.sort();
+    _taskList.sort();
   }
 
   Task? getTask(int index){
-    if(taskList.length<=index) return null;
-    return taskList[index];
+    if(_taskList.length<=index) return null;
+    return _taskList[index];
   }
 
   List<Task> getTaskList(){
     sortTasks();
-    return taskList;
+    return _taskList;
   }
 }

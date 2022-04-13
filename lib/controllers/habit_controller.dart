@@ -5,21 +5,21 @@ import 'package:hive/hive.dart';
 import '../boxes.dart';
 
 class HabitController{
-  List<Habit> habitList = List.empty();
+  List<Habit> _habitList = List.empty();
 
   HabitController(){
-    habitList = Hive.box<Habit>(HiveBoxes.habit).values.toList();
+    _habitList = Hive.box<Habit>(HiveBoxes.habit).values.toList();
   }
 
   void addHabit(Habit habit){
     Box<Habit> habitBox = Hive.box<Habit>(HiveBoxes.habit);
     habitBox.add(habit);
-    habitList.add(habit);
+    _habitList.add(habit);
   }
 
   void removeHabit(Habit habit){
     habit.delete();
-    habitList.remove(habit);
+    _habitList.remove(habit);
   }
 
   void editHabit(Habit oldHabit, Habit editedHabit){
@@ -29,8 +29,8 @@ class HabitController{
 
 
   Habit? getHabit(int index){
-    if(habitList.length<=index) return null;
-    return habitList[index];
+    if(_habitList.length<=index) return null;
+    return _habitList[index];
   }
 
   List<HabitEntry> getHabitEntries(Habit habit){
@@ -41,6 +41,6 @@ class HabitController{
   }
 
   List<Habit> getHabitList(){
-    return habitList;
+    return _habitList;
   }
 }
