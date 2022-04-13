@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/habit_entry.dart';
@@ -10,26 +12,77 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 class VisualizationScreen extends StatefulWidget {
   Habit? habit;
   late HabitEntry entry;
-  late List<double> datum;
-  late List<_HabitData> dataMera;
+  late List<double> dayData;
+  late List<_HabitEntry> dayDataDetail;
+
+  late List<double> weekData;
+  late List<_HabitEntry> weekDataDetail;
+
+  late List<double> monthData;
+  late List<_HabitEntry> monthDataDetail;
+
+  late DateTime? startingDay;
+  late double minVal;
+  late double maxVal;
+  late double diff;
   VisualizationScreen(Habit habit)
   {
     this.habit = habit;
     entry = new HabitEntry(habitId: habit.habitId, entryDate: DateTime.now(), entryAmount: 0);
     //Query this entry to get all the necessary lists.
     //Map the lists with integer numbers
-    datum = entry.dailyHabitEntries();
-    dataMera = sendList(datum);
+    startingDay = entry.firstEntryDate();
+    dayData = entry.dailyHabitEntries();
+    weekData = entry.weeklyHabitEntries();
+    monthData = entry.monthlyHabitEntries();
+    dayDataDetail = dayEntryList(dayData);
+    weekDataDetail = weekEntryList(weekData);
+    monthDataDetail = monthEntryList(monthData);
+
+    //weekDataDetail =
+    minVal = -1.0;
+    maxVal = -1.0;
+    for(int i=0;i<dayData.length;i++){
+      double val = dayData.elementAt(i);
+      if(i ==0){
+        minVal = val;
+        maxVal = val;
+      }
+      else{
+        if(val < minVal)minVal = val;
+        if(val > maxVal)maxVal =val;
+      }
+    }
+    print(maxVal.toString() + '  ' + minVal.toString());
+    diff = (maxVal-minVal)/20.0 ;
     //print('Length: '  + dataMera.length.toString());
 
   }
-  List<_HabitData> sendList(List<double> input)
+  List<_HabitEntry> dayEntryList(List<double> input)
   {
-    List<_HabitData> ok = List<_HabitData>.generate(input.length, (index) => _HabitData(idx: index+1, amount: input[index]));
-    for(int i=0;i<input.length;i++)
-    {
-      print(ok.elementAt(i).amount);
-    }
+    List<_HabitEntry> ok = List<_HabitEntry>.generate(input.length, (index) => _HabitEntry(
+        date: DateTime(startingDay!.year, startingDay!.month, startingDay!.day).add(Duration(days: index+1)),
+        amount: input[index]
+      )
+    );
+    return ok;
+  }
+  List<_HabitEntry> weekEntryList(List<double> input)
+  {
+    List<_HabitEntry> ok = List<_HabitEntry>.generate(input.length, (index) => _HabitEntry(
+        date: DateTime(startingDay!.year, startingDay!.month, startingDay!.day).add(Duration(days: (7*(index+1)))),
+        amount: input[index]
+    )
+    );
+    return ok;
+  }
+  List<_HabitEntry> monthEntryList(List<double> input)
+  {
+    List<_HabitEntry> ok = List<_HabitEntry>.generate(input.length, (index) => _HabitEntry(
+        date: DateTime(startingDay!.year, startingDay!.month, startingDay!.day).add(Duration(days: (30*(index)))),
+        amount: input[index]
+    )
+    );
     return ok;
   }
 
@@ -51,7 +104,10 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
     //   _HabitData(idx: 4, amount:40),
     //   _HabitData(idx: 0, amount:5),
     // ];
-    List<_HabitData> data = widget.dataMera;
+    List<_HabitEntry> dayDataFinal = widget.dayDataDetail;
+    List<_HabitEntry> weekDataFinal = widget.weekDataDetail;
+    List<_HabitEntry> monthDataFinal = widget.monthDataDetail;
+    print(widget.diff);
     return Scaffold(
         backgroundColor: Color(0xFFf4f7f2),
         appBar: AppBar(
@@ -67,38 +123,124 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
           toolbarHeight: 220,
           backgroundColor: kPrimaryColor,
         ),
-        body: Column(
+        body: ListView(
 
             children: <Widget>[
           //Initialize the chart widget
               SizedBox(height: 25.0,),
-              SfCartesianChart(
-
-                  primaryXAxis: NumericAxis(
-                      visibleMaximum: 15,
-                      visibleMinimum: 1,
-                      interval: 1
-                  ),
-
-                  // Chart title
-                  title: ChartTitle(text: widget.habit!.habitName + ' analysis'),
-                  // Enable legend
-                  legend: Legend(isVisible: true),
-                  zoomPanBehavior: ZoomPanBehavior(
-                    enablePanning: true,
-                  ),
-                  // Enable tooltip
-                  tooltipBehavior: TooltipBehavior(enable: true),
-                  series: <ChartSeries<_HabitData, int>>[
-                    LineSeries<_HabitData, int>(
-                        dataSource: data,
-                        xValueMapper: (_HabitData habitat, _) => habitat.idx,
-                        yValueMapper: (_HabitData habitat, _) => habitat.amount,
-                        name: widget.habit?.habitName,
-                        color: kPrimaryColor,
-                        // Enable data label
-                        dataLabelSettings: DataLabelSettings(isVisible: true))
-                  ]),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: SfCartesianChart(
+                    primaryXAxis: DateTimeAxis(
+                        interval: 1,
+                        autoScrollingDelta: 20,
+                        autoScrollingMode: AutoScrollingMode.start,
+                        majorGridLines: MajorGridLines(
+                          width: 0.0
+                        )
+                    ),
+                    primaryYAxis: NumericAxis(
+                        interval: max(5,min(widget.diff , 20.0)) ,
+                        majorGridLines: MajorGridLines(
+                          width: 0.0
+                        )
+                    ),
+                    // Chart title
+                    title: ChartTitle(text: widget.habit!.habitName + ' daily analysis'),
+                    // Enable legend
+                    legend: Legend(isVisible: true),
+                    zoomPanBehavior: ZoomPanBehavior(
+                      enablePanning: true,
+                    ),
+                    // Enable tooltip
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<_HabitEntry, DateTime>>[
+                      LineSeries<_HabitEntry, DateTime>(
+                          dataSource: dayDataFinal,
+                          xValueMapper: (_HabitEntry habitat, _) => habitat.date,
+                          yValueMapper: (_HabitEntry habitat, _) => habitat.amount,
+                          name: widget.habit?.habitName,
+                          color: kPrimaryColor,
+                          // Enable data label
+                          dataLabelSettings: DataLabelSettings(isVisible: false))
+                    ]),
+              ),
+              SizedBox(height: 25.0,),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: SfCartesianChart(
+                    primaryXAxis: DateTimeAxis(
+                        interval: 1,
+                        autoScrollingDelta: 20,
+                        autoScrollingMode: AutoScrollingMode.start,
+                        majorGridLines: MajorGridLines(
+                            width: 0.0
+                        )
+                    ),
+                    primaryYAxis: NumericAxis(
+                        interval: max(5,min(widget.diff , 20.0)) ,
+                        majorGridLines: MajorGridLines(
+                            width: 0.0
+                        )
+                    ),
+                    // Chart title
+                    title: ChartTitle(text: widget.habit!.habitName + ' weekly analysis'),
+                    // Enable legend
+                    legend: Legend(isVisible: true),
+                    zoomPanBehavior: ZoomPanBehavior(
+                      enablePanning: true,
+                    ),
+                    // Enable tooltip
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<_HabitEntry, DateTime>>[
+                      LineSeries<_HabitEntry, DateTime>(
+                          dataSource: weekDataFinal,
+                          xValueMapper: (_HabitEntry habitat, _) => habitat.date,
+                          yValueMapper: (_HabitEntry habitat, _) => habitat.amount,
+                          name: widget.habit?.habitName,
+                          color: kPrimaryColor,
+                          // Enable data label
+                          dataLabelSettings: DataLabelSettings(isVisible: false))
+                    ]),
+              ),
+              SizedBox(height: 25.0,),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: SfCartesianChart(
+                    primaryXAxis: DateTimeAxis(
+                        interval: 1,
+                        autoScrollingDelta: 20,
+                        autoScrollingMode: AutoScrollingMode.start,
+                        majorGridLines: MajorGridLines(
+                            width: 0.0
+                        )
+                    ),
+                    primaryYAxis: NumericAxis(
+                        interval: max(5,min(widget.diff , 20.0)) ,
+                        majorGridLines: MajorGridLines(
+                            width: 0.0
+                        )
+                    ),
+                    // Chart title
+                    title: ChartTitle(text: widget.habit!.habitName + ' monthly analysis'),
+                    // Enable legend
+                    legend: Legend(isVisible: true),
+                    zoomPanBehavior: ZoomPanBehavior(
+                      enablePanning: true,
+                    ),
+                    // Enable tooltip
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<_HabitEntry, DateTime>>[
+                      LineSeries<_HabitEntry, DateTime>(
+                          dataSource: monthDataFinal,
+                          xValueMapper: (_HabitEntry habitat, _) => habitat.date,
+                          yValueMapper: (_HabitEntry habitat, _) => habitat.amount,
+                          name: widget.habit?.habitName,
+                          color: kPrimaryColor,
+                          // Enable data label
+                          dataLabelSettings: DataLabelSettings(isVisible: false))
+                    ]),
+              ),
         ]));
     // return Scaffold(
     //   appBar: AppBar(
@@ -185,18 +327,9 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
   }
 
 }
-class _HabitData {
-  _HabitData({required this.idx, required this.amount});
-
-  int idx;
+class _HabitEntry{
+  _HabitEntry({required this.date, required this.amount});
+  DateTime date;
   double amount;
-  void setIdx(int idx)
-  {
-    this.idx = idx;
-  }
-  void setAmount(double amount)
-  {
-    this.amount = amount;
-  }
-
 }
+
