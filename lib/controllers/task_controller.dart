@@ -13,10 +13,12 @@ class TaskController{
   void addTask(Task task){
     Box<Task> taskBox = Hive.box<Task>(HiveBoxes.task);
     taskBox.add(task);
+    taskList.add(task);
   }
 
   void removeTask(Task task){
     task.delete();
+    taskList.remove(task);
   }
 
   void editTask(Task oldTask, Task editedTask){
@@ -24,14 +26,19 @@ class TaskController{
     addTask(editedTask);
   }
 
-  List<Task> sortedTaskList(){
+  void sortTasks(){
     List<Task> listOfTasks = Hive.box<Task>(HiveBoxes.task).values.toList();
     listOfTasks.sort();
-    return listOfTasks;
+    taskList.sort();
   }
 
   Task? getTask(int index){
     if(taskList.length<=index) return null;
     return taskList[index];
+  }
+
+  List<Task> getTaskList(){
+    sortTasks();
+    return taskList;
   }
 }
