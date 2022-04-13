@@ -61,7 +61,7 @@ class VisualizationScreen extends StatefulWidget {
   List<_HabitEntry> dayEntryList(List<double> input)
   {
     List<_HabitEntry> ok = List<_HabitEntry>.generate(input.length, (index) => _HabitEntry(
-        date: DateTime(startingDay!.year, startingDay!.month, startingDay!.day).add(Duration(days: index+1)),
+        date: DateTime(startingDay!.year, startingDay!.month, startingDay!.day).add(Duration(days: index)),
         amount: input[index]
       )
     );
@@ -70,7 +70,7 @@ class VisualizationScreen extends StatefulWidget {
   List<_HabitEntry> weekEntryList(List<double> input)
   {
     List<_HabitEntry> ok = List<_HabitEntry>.generate(input.length, (index) => _HabitEntry(
-        date: DateTime(startingDay!.year, startingDay!.month, startingDay!.day).add(Duration(days: (7*(index+1)))),
+        date: DateTime(startingDay!.year, startingDay!.month, startingDay!.day).add(Duration(days: (7*(index)))),
         amount: input[index]
     )
     );
@@ -107,6 +107,11 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
     List<_HabitEntry> dayDataFinal = widget.dayDataDetail;
     List<_HabitEntry> weekDataFinal = widget.weekDataDetail;
     List<_HabitEntry> monthDataFinal = widget.monthDataDetail;
+    for(int i=0;i<weekDataFinal.length;i++)
+      {
+        print(weekDataFinal.elementAt(i).amount);
+      }
+    print(dayDataFinal.length);
     print(widget.diff);
     return Scaffold(
         backgroundColor: Color(0xFFf4f7f2),
@@ -126,6 +131,13 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
         body: ListView(
 
             children: <Widget>[
+              SizedBox(height: 10.0,),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: SfSparkBarChart(
+
+                )
+              ),
           //Initialize the chart widget
               SizedBox(height: 25.0,),
               Padding(
@@ -133,7 +145,9 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                 child: SfCartesianChart(
                     primaryXAxis: DateTimeAxis(
                         interval: 1,
-                        autoScrollingDelta: 20,
+                        minorTicksPerInterval: 1,
+
+                        autoScrollingDelta: 1,
                         autoScrollingMode: AutoScrollingMode.start,
                         majorGridLines: MajorGridLines(
                           width: 0.0
@@ -171,7 +185,8 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                 child: SfCartesianChart(
                     primaryXAxis: DateTimeAxis(
                         interval: 1,
-                        autoScrollingDelta: 20,
+                        minorTicksPerInterval: 7,
+                        autoScrollingDelta: 1,
                         autoScrollingMode: AutoScrollingMode.start,
                         majorGridLines: MajorGridLines(
                             width: 0.0
@@ -208,8 +223,8 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                 padding: EdgeInsets.all(10.0),
                 child: SfCartesianChart(
                     primaryXAxis: DateTimeAxis(
-                        interval: 1,
-                        autoScrollingDelta: 20,
+                        interval: 30,
+                        autoScrollingDelta: 1,
                         autoScrollingMode: AutoScrollingMode.start,
                         majorGridLines: MajorGridLines(
                             width: 0.0
@@ -241,7 +256,9 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                           dataLabelSettings: DataLabelSettings(isVisible: false))
                     ]),
               ),
-        ]));
+          ]
+        )
+    );
     // return Scaffold(
     //   appBar: AppBar(
     //     shape: RoundedRectangleBorder(
