@@ -58,60 +58,74 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: size.height * 0.03),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Container(
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
 
-                        child: IconButton(
+                          child: IconButton(
 
-                            onPressed: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) =>  HabitListScreen()),
-                              );
-                            },
-                            iconSize: 180.0,
-                            icon: Image.asset('assets/images/business _ presentation, graph, chart, project, analytics, statistics, woman, people.png')
-                        ),
-                      ),
-                      SizedBox(height: size.height * 0.04),
-                      const Text(
-                          'Manage your habits',
-                          style: TextStyle(
-                            color: kPrimaryColor,
-                              fontSize: 15.0
+                              onPressed: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  HabitListScreen()),
+                                );
+                              },
+                              iconSize: 150.0,
+                              icon: Image.asset('assets/images/business _ presentation, graph, chart, project, analytics, statistics, woman, people.png')
                           ),
-                      )
-                    ],
+                        ),
+                        SizedBox(height: size.height * 0.04),
+                        const Text(
+                            'Manage your habits',
+                            style: TextStyle(
+                              color: kPrimaryColor,
+                                fontSize: 15.0
+                            ),
+                        ),
+                        SizedBox(height: 10,)
+                      ],
 
+                    ),
                   ),
 
                   SizedBox(width: size.height * 0.018),
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        child: IconButton(
-                            onPressed: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => TaskListScreen()),
-                              );
-                            },
-                            iconSize: 180.0,
-                            icon: Image.asset('assets/images/e-commerce _ service, receipt, document, confirm, complete, checkmark, server, waiter.png')
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: IconButton(
+                              onPressed: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => TaskListScreen()),
+                                );
+                              },
+                              iconSize: 150.0,
+                              icon: Image.asset('assets/images/e-commerce _ service, receipt, document, confirm, complete, checkmark, server, waiter.png')
+                          ),
                         ),
-                      ),
-                      SizedBox(height: size.height * 0.04),
-                      const Text(
-                        'Track your tasks',
-                        style: TextStyle(
-                            color: kPrimaryColor,
-                            fontSize: 15.0
+                        SizedBox(height: size.height * 0.04),
+                        const Text(
+                          'Track your tasks',
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontSize: 15.0
+                          ),
                         ),
-                      ),
+                        SizedBox(height: 10.0,)
 
-                    ],
+                      ],
+                    ),
                   ),
 
                 ],
