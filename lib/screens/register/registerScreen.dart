@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/services/auth.dart';
+import '../loading.dart';
 import 'components/background.dart';
 import 'package:habitrix/constants.dart';
 
@@ -22,7 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return loading? Loading(): Scaffold(
       body: Background(
 
         child: SingleChildScrollView(
@@ -120,17 +121,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             TextButton(
-                              style: TextButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical : 10.0, horizontal: 10.0 ),
-                                primary: Colors.white,
-                                textStyle: const TextStyle(fontSize: 20),
-
-                              ),
                               onPressed: () async{
                                 if(_formKey.currentState!.validate()){
                                   setState(() => loading = true);
                                   dynamic result = await _auth.registerWithEmailAndPassword(email, password);
-                                  print(result);
+                                  //print(result);
                                   if(result == null) {
                                     setState(() {
                                       loading = false;
@@ -139,7 +134,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   }
                                 }
                               },
-                              child: const Text('Register'),
+                              child: Container(
+                                width: 300.0,
+                                height: 30.0,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  color: kPrimaryColor,
+
+                                ),
+                                child: Text(
+                                  'Register',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.0
+                                  ),
+                                )
+                            ),
                             ),
                           ],
                         ),

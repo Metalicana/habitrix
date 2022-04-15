@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/services/auth.dart';
+import '../loading.dart';
 import 'components/background.dart';
 import 'package:habitrix/constants.dart';
 
@@ -30,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return loading? Loading() : Scaffold(
         body: Background(
 
           child: SingleChildScrollView(
@@ -80,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.isEmpty ? 'Enter an email' : null,
+                          validator: (val) => val!.isEmpty ? 'Enter an email' : val.contains('@') ? null : 'Enter a valid email',
                         ),
                       ),
                       SizedBox(height: size.height * 0.01),
@@ -132,11 +133,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               TextButton(
-                                style: TextButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(vertical : 10.0, horizontal: 10.0 ),
-                                  primary: Colors.white,
-                                  textStyle: const TextStyle(fontSize: 20),
-                                ),
                                 onPressed: () async {
                                   if(_formKey.currentState!.validate()){
                                     setState(() => loading = true);
@@ -149,7 +145,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                     }
                                   }
                                 },
-                                child: const Text('Login'),
+                                child: Container(
+                                    width: 300.0,
+                                    height: 30.0,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      color: kPrimaryColor,
+
+                                    ),
+                                    child: Text(
+                                      'Login',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20.0
+                                      ),
+                                    )
+                                ),
                               ),
                             ],
                           ),
