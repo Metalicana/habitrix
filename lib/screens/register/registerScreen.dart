@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitrix/screens/login/loginScreen.dart';
 import 'package:habitrix/services/auth.dart';
 import '../loading.dart';
 import 'components/background.dart';
@@ -175,6 +176,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
+              Container(
+                  child: error == '' ? Container() : ErrorScreen()
+              )
 
             ],
           ),

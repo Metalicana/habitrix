@@ -140,7 +140,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     if(result == null) {
                                       setState(() {
                                         loading = false;
-                                        error = 'Could not sign in with those credentials';
+                                        error = 'bad auth';
+
                                       });
                                     }
                                   }
@@ -186,11 +187,65 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+                Container(
+                  child: error == '' ? Container() : ErrorScreen()
+                )
 
               ],
             ),
           ),
         ),
     );
+  }
+}
+
+class ErrorScreen extends StatelessWidget {
+
+
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Text(
+        'Incorrect credentials. please try again',
+        style: TextStyle(
+          color: Colors.red[500]
+        ),
+      ),
+    );
+    // Size size = MediaQuery
+    //     .of(context)
+    //     .size;
+    // return Scaffold(
+    //   body: Background(
+    //
+    //     child: SingleChildScrollView(
+    //       child: Column(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         children: <Widget>[
+    //           TextButton(
+    //             onPressed: () {
+    //               Navigator.pop(context);
+    //             },
+    //             child: Text(
+    //               "Incorrect credentials. Try again?",
+    //               style: TextStyle(
+    //                 fontWeight: FontWeight.bold,
+    //                 color: kPrimaryColor,
+    //                 fontSize: 20,
+    //               ),
+    //             ),
+    //           ),
+    //           SizedBox(height: size.height * 0.03),
+    //           Image.asset(
+    //             "assets/images/settings, maintenance _ options, preferences, configuration, man, repair, fix, people@2x.png",
+    //             height: size.height * 0.35,
+    //           ),
+    //           SizedBox(height: size.height * 0.03),
+    //
+    //
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }
