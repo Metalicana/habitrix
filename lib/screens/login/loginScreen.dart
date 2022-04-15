@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/services/auth.dart';
 import '../loading.dart';
 import 'components/background.dart';
@@ -8,7 +9,8 @@ import 'package:habitrix/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   final Function toggleView;
-  LoginScreen({ required this.toggleView });
+  final HomeController mainController;
+  LoginScreen({ required this.toggleView , required this.mainController});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();

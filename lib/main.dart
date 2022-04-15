@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/screens/habit/habitAdd/habitAddForm.dart';
 import 'package:habitrix/screens/habit/habitEdit/habitEditForm.dart';
 import 'package:habitrix/screens/home/homeScreen.dart';
@@ -29,12 +30,13 @@ void main() async {
   await Hive.openBox<Task>(HiveBoxes.task);
   await Hive.openBox<Habit>(HiveBoxes.habit);
   await Hive.openBox<HabitEntry>(HiveBoxes.habit_entry);
-  runApp(const MyApp());
+  HomeController mainController = HomeController();
+  runApp( MyApp(lePieceDeResistance: mainController));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  MyApp({required this.lePieceDeResistance});
+  final HomeController lePieceDeResistance;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: kBackgroundColor,
       ),
-        home: Wrapper(),
+        home: Wrapper(mainController: lePieceDeResistance),
       )
     );
   }
