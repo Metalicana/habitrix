@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/screens/login/loginScreen.dart';
 import 'package:habitrix/services/auth.dart';
 import '../loading.dart';
@@ -8,7 +9,8 @@ import 'package:habitrix/constants.dart';
 class RegisterScreen extends StatefulWidget {
 
   final Function toggleView;
-  RegisterScreen({ required this.toggleView });
+  final HomeController mainController;
+  RegisterScreen({ required this.toggleView , required this.mainController});
 
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
@@ -125,7 +127,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onPressed: () async{
                                 if(_formKey.currentState!.validate()){
                                   setState(() => loading = true);
-                                  dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+
+                                  dynamic result = await widget.mainController.getUserController!.register(email, password);//  .registerWithEmailAndPassword(email, password);
                                   //print(result);
                                   if(result == null) {
                                     setState(() {

@@ -1,11 +1,15 @@
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/screens/login/loginScreen.dart';
 import 'package:habitrix/screens/register/registerScreen.dart';
 import 'package:flutter/material.dart';
 
 
 class Authenticate extends StatefulWidget {
+  final HomeController mainController;
+  Authenticate({required this.mainController});
   @override
   _AuthenticateState createState() => _AuthenticateState();
+
 }
 
 class _AuthenticateState extends State<Authenticate> {
@@ -19,9 +23,9 @@ class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
     if (showSignIn) {
-      return LoginScreen(toggleView:  toggleView);
+      return LoginScreen(toggleView:  toggleView, mainController: widget.mainController,);
     } else {
-      return RegisterScreen(toggleView:  toggleView);
+      return RegisterScreen(toggleView:  toggleView, mainController: widget.mainController,);
     }
   }
 }

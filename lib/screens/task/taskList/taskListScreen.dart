@@ -11,15 +11,15 @@ import '../../../boxes.dart';
 import '../taskItem.dart';
 
 class TaskListScreen extends StatelessWidget {
-  final AuthService _auth = AuthService();
+
 
 
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime(1999);
-    Task a = Task( taskName: 'Kiss Homies goodnight', deadline: date, importance: 5 ,difficulty:  5);
-    Task b = Task( taskName: 'Read bible', deadline: date, importance: 5 ,difficulty:  5);
-    Task c = Task( taskName: 'Play skyrim', deadline: date, importance: 5 ,difficulty:  5);
+    // DateTime date = DateTime(1999);
+    // Task a = Task( taskName: 'Kiss Homies goodnight', deadline: date, importance: 5 ,difficulty:  5);
+    // Task b = Task( taskName: 'Read bible', deadline: date, importance: 5 ,difficulty:  5);
+    // Task c = Task( taskName: 'Play skyrim', deadline: date, importance: 5 ,difficulty:  5);
     return Container(
       child: Scaffold(
         backgroundColor: Color(0xFFf4f7f2),
