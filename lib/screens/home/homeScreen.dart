@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/screens/habit/habitList/habitListScreen.dart';
 import 'package:habitrix/screens/home/components/background.dart';
 import 'package:habitrix/screens/task/taskList/taskListScreen.dart';
@@ -9,7 +10,8 @@ import 'package:habitrix/services/auth.dart';
 class HomeScreen extends StatelessWidget {
 
   final AuthService _auth = AuthService();
-
+  final HomeController mainController;
+  HomeScreen({required this.mainController});
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,7 +36,7 @@ class HomeScreen extends StatelessWidget {
               icon: const Icon(Icons.logout),
               tooltip: 'logout',
               onPressed: () async {
-                await _auth.signOut();
+                await mainController.getUserController!.signOut();
               },
             ),
           ],

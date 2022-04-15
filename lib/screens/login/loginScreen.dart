@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onPressed: () async {
                                   if(_formKey.currentState!.validate()){
                                     setState(() => loading = true);
-                                    dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                                    dynamic result = await widget.mainController.getUserController!.signIn(email, password);//_auth.signInWithEmailAndPassword(email, password);
                                     if(result == null) {
                                       setState(() {
                                         loading = false;
