@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/screens/task/taskList/components/background.dart';
 import 'package:hive/hive.dart';
@@ -15,7 +16,8 @@ import '../../../boxes.dart';
 
 class HabitEditForm extends StatefulWidget {
   final Habit habit;
-  HabitEditForm({required this.habit});
+  final HomeController mainController;
+  HabitEditForm({required this.habit, required this.mainController});
 
   @override
   _HabitEditFormState createState() => _HabitEditFormState();
@@ -102,7 +104,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.isEmpty ? 'Habit name is required' : null,
+                          validator: (val) =>  null,
                         ),
                       ),
                       SizedBox(height:10.0),
@@ -137,7 +139,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.isEmpty ? 'Task name is required' : null,
+                          validator: (val) => null
                         ),
                       ),
                       SizedBox(height: size.height * 0.03),
@@ -214,7 +216,8 @@ class _HabitEditFormState extends State<HabitEditForm> {
                       SizedBox(height:10.0),
                       TextButton(
                           onPressed: (){
-                            widget.habit.delete();
+                            widget.mainController.getHabitController!.removeHabit(widget.habit);
+                            //widget.habit.delete();
                             Navigator.pop(context);
                           },
                           child: Container(
@@ -261,17 +264,23 @@ class _HabitEditFormState extends State<HabitEditForm> {
   }
   void _onFormSubmit()
   {
-    Box<Habit> habitBox = Hive.box<Habit>(HiveBoxes.habit);
+    //Box<Habit> habitBox = Hive.box<Habit>(HiveBoxes.habit);
     String hashID = widget.habit.habitId;
-    habitBox.add(
-        Habit(
-          habitId: hashID,
-          habitName: name=='' ? widget.habit.habitName : name,
-          unit: unit == '' ? widget.habit.unit  : unit,
-          type: dropdownValue == '' ? widget.habit.type : dropdownValue,
-        )
-    );
-    widget.habit.delete();
+    widget.mainController.getHabitController!.editHabit(widget.habit, Habit(
+              habitId: hashID,
+              habitName: name=='' ? widget.habit.habitName : name,
+              unit: unit == '' ? widget.habit.unit  : unit,
+              type: dropdownValue == '' ? widget.habit.type : dropdownValue,
+            ));
+    // habitBox.add(
+    //     Habit(
+    //       habitId: hashID,
+    //       habitName: name=='' ? widget.habit.habitName : name,
+    //       unit: unit == '' ? widget.habit.unit  : unit,
+    //       type: dropdownValue == '' ? widget.habit.type : dropdownValue,
+    //     )
+    // );
+    //widget.habit.delete();
   }
 }
 

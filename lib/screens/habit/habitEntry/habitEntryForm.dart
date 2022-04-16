@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/habit_entry.dart';
 import 'package:habitrix/screens/habit/habitList/components/background.dart';
@@ -11,7 +12,8 @@ import '../../../constants.dart';
 
 class HabitEntryForm extends StatefulWidget {
   final Habit habit;
-  HabitEntryForm({required this.habit});
+  final HomeController mainController;
+  HabitEntryForm({required this.habit, required this.mainController});
 
   @override
   _HabitEntryFormState createState() => _HabitEntryFormState();

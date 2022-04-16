@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                               onPressed: (){
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) =>  HabitListScreen()),
+                                  MaterialPageRoute(builder: (context) =>  HabitListScreen(mainController: mainController,)),
                                 );
                               },
                               iconSize: 150.0,

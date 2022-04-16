@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/screens/task/taskList/components/background.dart';
 import 'package:hive/hive.dart';
@@ -15,8 +16,9 @@ import 'dart:convert';
 import '../../../boxes.dart';
 
 class HabitAddForm extends StatefulWidget {
-  const HabitAddForm({Key? key}) : super(key: key);
+  final HomeController mainController;
 
+  HabitAddForm({required this.mainController});
   @override
   _HabitAddFormState createState() => _HabitAddFormState();
 }
@@ -237,9 +239,10 @@ class _HabitAddFormState extends State<HabitAddForm> {
   }
   void _onFormSubmit()
   {
-    Box<Habit> habitBox = Hive.box<Habit>(HiveBoxes.habit);
+    //Box<Habit> habitBox = Hive.box<Habit>(HiveBoxes.habit);
     String habitId = hashID();
-    habitBox.add(Habit(habitId: habitId,habitName: name, type: dropdownValue, unit: unit ));
+    //habitBox.add(Habit(habitId: habitId,habitName: name, type: dropdownValue, unit: unit ));
+    widget.mainController.getHabitController!.addHabit(Habit(habitId: habitId,habitName: name, type: dropdownValue, unit: unit ));
   }
 }
 

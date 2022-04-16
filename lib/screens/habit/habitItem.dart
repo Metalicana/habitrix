@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/task.dart';
 import 'package:habitrix/screens/visualize/visualizationScreen.dart';
@@ -12,8 +13,9 @@ import 'habitEntry/habitEntryForm.dart';
 
 class HabitItem extends StatefulWidget {
   final Habit habit;
+  final HomeController mainController;
   bool checked = false;
-  HabitItem({Key? key,  required this.habit}) : super(key: key);
+  HabitItem({Key? key,  required this.habit, required this.mainController}) : super(key: key);
 
   @override
   _HabitItemState createState() => _HabitItemState();
@@ -29,7 +31,7 @@ class _HabitItemState extends State<HabitItem> {
         onTap: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>  HabitEditForm(habit: widget.habit)),
+            MaterialPageRoute(builder: (context) =>  HabitEditForm(habit: widget.habit, mainController: widget.mainController,)),
           );
         },
         child: Card(
@@ -66,7 +68,7 @@ class _HabitItemState extends State<HabitItem> {
                   onPressed: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) =>  HabitEntryForm(habit: widget.habit)),
+                      MaterialPageRoute(builder: (context) =>  HabitEntryForm(habit: widget.habit,mainController: widget.mainController,)),
                     );
                   },
                   icon: Icon(Icons.add)

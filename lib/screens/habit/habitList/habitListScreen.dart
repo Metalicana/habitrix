@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/task.dart';
 import 'package:habitrix/screens/habit/habitAdd/habitAddForm.dart';
@@ -16,7 +17,8 @@ import 'habitList.dart';
 
 class HabitListScreen extends StatelessWidget {
   final AuthService _auth = AuthService();
-
+  final HomeController mainController;
+  HabitListScreen({required this.mainController});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +40,7 @@ class HabitListScreen extends StatelessWidget {
         body: ValueListenableBuilder(
             valueListenable: Hive.box<Habit>(HiveBoxes.habit).listenable(),
             builder: (BuildContext context, Box<Habit> box, _) {
-              return HabitList(box: box);
+              return HabitList(box: box, mainController: mainController,);
             }),
         floatingActionButton: FloatingActionButton(
             backgroundColor: kPrimaryColor,
@@ -46,7 +48,7 @@ class HabitListScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const HabitAddForm()),
+                MaterialPageRoute(builder: (context) =>  HabitAddForm(mainController: mainController )),
               );
             }),
       ),

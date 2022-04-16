@@ -19,8 +19,9 @@ class TaskList extends StatefulWidget {
 class _TaskListState extends State<TaskList> {
   @override
   Widget build(BuildContext context) {
-    var tasks = widget.box.values.toList();
-    tasks.sort();
+    // var tasks = widget.box.values.toList();
+    // tasks.sort();
+    var tasks = widget.mainController.getTaskController!.getTaskList();
     return ListView.builder(
       itemCount: widget.box.values.length,
       itemBuilder: (context, index){
