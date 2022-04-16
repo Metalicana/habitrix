@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/habit_entry.dart';
+import 'package:intl/intl.dart';
 
 import '../../constants.dart';
 
@@ -114,12 +115,14 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
     List<_HabitEntry> dayDataFinal = widget.dayDataDetail;
     List<_HabitEntry> weekDataFinal = widget.weekDataDetail;
     List<_HabitEntry> monthDataFinal = widget.monthDataDetail;
-    for(int i=0;i<weekDataFinal.length;i++)
-      {
-        print(weekDataFinal.elementAt(i).amount);
-      }
-    print(dayDataFinal.length);
-    print(widget.diff);
+    // for(int i=0;i<weekDataFinal.length;i++)
+    //   {
+    //     print(weekDataFinal.elementAt(i).amount);
+    //   }
+    // print(dayDataFinal.length);
+    // print(weekDataFinal.length);
+    // print(monthDataFinal.length);
+
     return Scaffold(
         backgroundColor: Color(0xFFf4f7f2),
         appBar: AppBar(
@@ -128,7 +131,7 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
               bottom: Radius.circular(50.0),
             ),
           ),
-          title: const Text('Habits',
+          title: const Text('Habit analysis',
               style: TextStyle(
                 fontSize: 30.0,
               )),
@@ -138,13 +141,7 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
         body: ListView(
 
             children: <Widget>[
-              SizedBox(height: 10.0,),
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: SfSparkBarChart(
 
-                )
-              ),
           //Initialize the chart widget
               SizedBox(height: 25.0,),
               Padding(
@@ -153,7 +150,7 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                     primaryXAxis: DateTimeAxis(
                         interval: 1,
                         minorTicksPerInterval: 1,
-
+                        intervalType: DateTimeIntervalType.days,
                         autoScrollingDelta: 10,
                         autoScrollingMode: AutoScrollingMode.start,
                         majorGridLines: MajorGridLines(
@@ -192,8 +189,9 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                 child: SfCartesianChart(
                     primaryXAxis: DateTimeAxis(
                         interval: 1,
+                        intervalType: DateTimeIntervalType.days,
                         minorTicksPerInterval: 7,
-                        autoScrollingDelta: 5,
+                        autoScrollingDelta: 10,
                         autoScrollingMode: AutoScrollingMode.start,
                         majorGridLines: MajorGridLines(
                             width: 0.0
@@ -230,8 +228,9 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                 padding: EdgeInsets.all(10.0),
                 child: SfCartesianChart(
                     primaryXAxis: DateTimeAxis(
-                        interval: 30,
-                        autoScrollingDelta: 5,
+                        interval: 1,
+                        autoScrollingDelta: 10,
+                        intervalType: DateTimeIntervalType.months,
                         minorTicksPerInterval: 1,
                         autoScrollingMode: AutoScrollingMode.start,
                         majorGridLines: MajorGridLines(
