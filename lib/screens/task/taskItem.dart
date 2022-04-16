@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/task.dart';
 import 'package:habitrix/screens/task/taskEdit/taskEditForm.dart';
 import 'package:intl/intl.dart';
@@ -7,7 +8,8 @@ import 'package:intl/intl.dart';
 class TaskItem extends StatefulWidget {
   final Task task;
   bool checked = false;
-  TaskItem({Key? key,  required this.task}) : super(key: key);
+  final HomeController mainController;
+  TaskItem({Key? key,  required this.task, required this.mainController}) : super(key: key);
 
   @override
   _TaskItemState createState() => _TaskItemState();
@@ -23,7 +25,7 @@ class _TaskItemState extends State<TaskItem> {
         onTap: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>  TaskEditForm(task: widget.task)),
+            MaterialPageRoute(builder: (context) =>  TaskEditForm(task: widget.task, mainController: widget.mainController,)),
           );
         },
         child: Card(
@@ -39,7 +41,8 @@ class _TaskItemState extends State<TaskItem> {
               onPressed: (){
                 setState(() {
                   widget.checked = !widget.checked;
-                  widget.task.delete();
+                  //widget.task.delete();
+                  widget.mainController.getTaskController!.removeTask(widget.task);
                 });
               },
               icon: Icon(

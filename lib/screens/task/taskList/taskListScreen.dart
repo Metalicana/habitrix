@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/task.dart';
 import 'package:habitrix/screens/task/taskAdd/taskAddForm.dart';
 import 'package:habitrix/screens/task/taskList/taskList.dart';
@@ -12,7 +13,8 @@ import '../taskItem.dart';
 
 class TaskListScreen extends StatelessWidget {
 
-
+  final HomeController mainController;
+  TaskListScreen({required this.mainController});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class TaskListScreen extends StatelessWidget {
         body: ValueListenableBuilder(
           valueListenable: Hive.box<Task>(HiveBoxes.task).listenable(),
           builder: (BuildContext context, Box<Task> box, _) {
-            return TaskList( box: box);
+            return TaskList( box: box, mainController: mainController,);
           },
 
 
@@ -53,7 +55,7 @@ class TaskListScreen extends StatelessWidget {
             onPressed: (){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const TaskAddForm()),
+                MaterialPageRoute(builder: (context) =>  TaskAddForm(mainController: mainController,)),
               );
             }
         ),
