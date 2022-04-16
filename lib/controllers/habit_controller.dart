@@ -27,6 +27,10 @@ class HabitController{
     addHabit(editedHabit);
   }
 
+  void addHabitEntry(HabitEntry entry){
+    Box<HabitEntry> habitEntryBox = Hive.box<HabitEntry>(HiveBoxes.habit_entry);
+    habitEntryBox.add(entry);
+  }
 
   Habit? getHabit(int index){
     if(_habitList.length<=index) return null;
