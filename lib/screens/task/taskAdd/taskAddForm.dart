@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/task.dart';
 import 'package:habitrix/screens/task/taskList/components/background.dart';
 import 'package:hive/hive.dart';
@@ -12,8 +13,8 @@ import 'package:intl/intl.dart';
 import '../../../boxes.dart';
 
 class TaskAddForm extends StatefulWidget {
-  const TaskAddForm({Key? key}) : super(key: key);
-
+  TaskAddForm({required this.mainController});
+  final HomeController mainController;
   @override
   _TaskAddFormState createState() => _TaskAddFormState();
 }
@@ -228,8 +229,9 @@ class _TaskAddFormState extends State<TaskAddForm> {
   }
   void _onFormSubmit()
   {
-    Box<Task> taskBox = Hive.box<Task>(HiveBoxes.task);
-    taskBox.add(Task(taskName: name, deadline: deadline!, difficulty: difficulty!.round(), importance: importance!.round(), ));
+    // Box<Task> taskBox = Hive.box<Task>(HiveBoxes.task);
+    // taskBox.add(Task(taskName: name, deadline: deadline!, difficulty: difficulty!.round(), importance: importance!.round(), ));
+    widget.mainController.getTaskController!.addTask(Task(taskName: name, deadline: deadline!, difficulty: difficulty!.round(), importance: importance!.round(), ));
   }
 }
 

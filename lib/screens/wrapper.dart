@@ -17,7 +17,7 @@ class Wrapper extends StatelessWidget {
     if (user == null){
       return Authenticate(mainController: mainController);
     } else {
-      return HomeScreen();
+      return HomeScreen(mainController: mainController);
     }
 
   }

@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/task.dart';
 import 'package:habitrix/screens/task/taskList/components/background.dart';
 import 'package:hive/hive.dart';
@@ -13,7 +14,8 @@ import '../../../boxes.dart';
 
 class TaskEditForm extends StatefulWidget {
   final Task task;
-  TaskEditForm({required this.task});
+  final HomeController mainController;
+  TaskEditForm({required this.task, required this.mainController});
   @override
   _TaskEditFormState createState() => _TaskEditFormState();
 }
@@ -233,16 +235,23 @@ class _TaskEditFormState extends State<TaskEditForm> {
   }
   void _onFormSubmit()
   {
-    Box<Task> taskBox = Hive.box<Task>(HiveBoxes.task);
-    taskBox.add(
-        Task(
-          taskName: name==null ? widget.task.taskName : name!,
-          deadline: deadline==null? widget.task.deadline : deadline!,
-          difficulty: difficulty==null? widget.task.difficulty:difficulty!.round(),
-          importance: importance==null? widget.task.importance:importance!.round(),
-        )
-    );
-    widget.task.delete();
+    //Box<Task> taskBox = Hive.box<Task>(HiveBoxes.task);
+    // taskBox.add(
+    //     Task(
+    //       taskName: name==null ? widget.task.taskName : name!,
+    //       deadline: deadline==null? widget.task.deadline : deadline!,
+    //       difficulty: difficulty==null? widget.task.difficulty:difficulty!.round(),
+    //       importance: importance==null? widget.task.importance:importance!.round(),
+    //     )
+    // );
+    //widget.task.delete();
+    Task editedTask = Task(
+              taskName: name==null ? widget.task.taskName : name!,
+              deadline: deadline==null? widget.task.deadline : deadline!,
+              difficulty: difficulty==null? widget.task.difficulty:difficulty!.round(),
+              importance: importance==null? widget.task.importance:importance!.round(),
+            );
+    widget.mainController.getTaskController!.editTask(widget.task, editedTask);
 
   }
 }
