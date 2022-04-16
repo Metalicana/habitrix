@@ -187,9 +187,8 @@ class _HabitEntryFormState extends State<HabitEntryForm> {
   }
   void _onFormSubmit()
   {
-    Box<HabitEntry> habitEntryBox = Hive.box<HabitEntry>(HiveBoxes.habit_entry);
-    habitEntryBox.add(HabitEntry(habitId: widget.habit.habitId, entryAmount: unitAmount!, entryDate: entryDate!));
-    //Box<Task> taskBox = Hive.box<Task>(HiveBoxes.task);
-    //taskBox.add(Task(taskName: name, deadline: deadline!, difficulty: difficulty!.round(), importance: importance!.round(), ));
+    // Box<HabitEntry> habitEntryBox = Hive.box<HabitEntry>(HiveBoxes.habit_entry);
+    // habitEntryBox.add(HabitEntry(habitId: widget.habit.habitId, entryAmount: unitAmount!, entryDate: entryDate!));
+    widget.mainController.getHabitController!.addHabitEntry(HabitEntry(habitId: widget.habit.habitId, entryAmount: unitAmount!, entryDate: entryDate!));
   }
 }
