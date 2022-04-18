@@ -149,7 +149,6 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                 child: SfCartesianChart(
                     primaryXAxis: DateTimeAxis(
                         interval: 1,
-                        minorTicksPerInterval: 1,
                         intervalType: DateTimeIntervalType.days,
                         autoScrollingDelta: 10,
                         autoScrollingMode: AutoScrollingMode.start,

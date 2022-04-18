@@ -25,8 +25,8 @@ class _TaskListState extends State<TaskList> {
     return ListView.builder(
       itemCount: widget.box.values.length,
       itemBuilder: (context, index){
-        Task? task = tasks[index];
-        return TaskItem(task: task!, mainController: widget.mainController,);
+        Task task = tasks[index];
+        return TaskItem(task: task, mainController: widget.mainController,);
       },
     );
   }

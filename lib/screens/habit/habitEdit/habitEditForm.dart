@@ -31,8 +31,6 @@ class _HabitEditFormState extends State<HabitEditForm> {
   // text field state
   String name = '';
   String unit = '';
-  double importance = 20;
-  double difficulty = 20;
   String dropdownValue = '';
   validated() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
