@@ -131,13 +131,7 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
         body: ListView(
 
             children: <Widget>[
-              SizedBox(height: 10.0,),
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: SfSparkBarChart(
-
-                )
-              ),
+              SizedBox(height: 25.0,),
           //Initialize the chart widget
               SizedBox(height: 25.0,),
               Padding(

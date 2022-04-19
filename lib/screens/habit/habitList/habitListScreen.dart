@@ -3,6 +3,7 @@ import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/task.dart';
 import 'package:habitrix/screens/habit/habitAdd/habitAddForm.dart';
+import 'package:habitrix/screens/habit/habitAdd/habitAddForm.dart';
 import 'package:habitrix/screens/task/taskAdd/taskAddForm.dart';
 import 'package:habitrix/screens/task/taskList/taskList.dart';
 import 'package:habitrix/services/auth.dart';
