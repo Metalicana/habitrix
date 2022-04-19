@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/screens/login/login_screen.dart';
-import 'package:habitrix/services/auth.dart';
 import '../loading.dart';
 import 'components/background.dart';
 import 'package:habitrix/constants.dart';
@@ -17,7 +16,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String error = '';
   bool loading = false;
@@ -99,7 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                         ),
                         onSaved: (String? value) {},
-                        validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long' : null,
+                        validator: (val) => val!.length < 6 ? 'Enter a password 6+ characters long' : null,
                         onChanged: (val) {
                           setState(() => password = val);
                         },

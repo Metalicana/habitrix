@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/screens/habit/habitAdd/habit_add_form.dart';
-import 'package:habitrix/services/auth.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:habitrix/constants.dart';
@@ -10,7 +9,6 @@ import '../../../boxes.dart';
 import 'habit_list.dart';
 
 class HabitListScreen extends StatelessWidget {
-  final AuthService _auth = AuthService();
   final HomeController mainController;
   HabitListScreen({required this.mainController});
   @override

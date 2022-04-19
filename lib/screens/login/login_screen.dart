@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/controllers/home_controller.dart';
-import 'package:habitrix/services/auth.dart';
 import '../loading.dart';
 import 'components/background.dart';
 import 'package:habitrix/constants.dart';
@@ -17,8 +16,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final AuthService _auth = AuthService();
-
   final _formKey = GlobalKey<FormState>();
 
   String error = '';
@@ -113,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long' : null,
+                          validator: (val) => val!.length < 6 ? 'Enter a password 6+ characters long' : null,
                         ),
                       ),
                       SizedBox(height: size.height * 0.01),

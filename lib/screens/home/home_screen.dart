@@ -4,12 +4,8 @@ import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/screens/habit/habitList/habit_list_screen.dart';
 import 'package:habitrix/screens/home/components/background.dart';
 import 'package:habitrix/screens/task/taskList/task_list_screen.dart';
-import 'package:habitrix/services/auth.dart';
-
 
 class HomeScreen extends StatelessWidget {
-
-  final AuthService _auth = AuthService();
   final HomeController mainController;
   HomeScreen({required this.mainController});
   @override

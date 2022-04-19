@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/screens/wrapper.dart';
-import 'package:habitrix/services/auth.dart';
 import 'models/habitrix_user.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -20,18 +19,18 @@ void main() async {
   await Hive.openBox<Habit>(HiveBoxes.habit);
   await Hive.openBox<HabitEntry>(HiveBoxes.habit_entry);
   HomeController mainController = HomeController();
-  runApp( MyApp(lePieceDeResistance: mainController));
+  runApp( MyApp(metaController: mainController));
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({required this.lePieceDeResistance});
-  final HomeController lePieceDeResistance;
+  MyApp({required this.metaController});
+  final HomeController metaController;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
 
     return StreamProvider<HabitrixUser>.value(
-      value: AuthService().user,
+      value: metaController.getUserController!.getUser(),
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'habitrix',
@@ -39,7 +38,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: kBackgroundColor,
       ),
-        home: Wrapper(mainController: lePieceDeResistance),
+        home: Wrapper(mainController: metaController),
       )
     );
   }
