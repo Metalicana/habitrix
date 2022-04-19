@@ -26,8 +26,8 @@ class _HabitListState extends State<HabitList> {
     return ListView.builder(
       itemCount: widget.box.values.length,
       itemBuilder: (context, index){
-        Habit? habit = habits[index];
-        return HabitItem(habit: habit!, mainController: widget.mainController,);
+        Habit habit = habits[index];
+        return HabitItem(habit: habit, mainController: widget.mainController,);
       },
     );
   }

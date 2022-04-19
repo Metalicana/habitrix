@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/habit_entry.dart';
+import 'package:intl/intl.dart';
 
 import '../../constants.dart';
 
@@ -11,6 +13,7 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class VisualizationScreen extends StatefulWidget {
   Habit? habit;
+  late final HomeController mainController;
   late HabitEntry entry;
   late List<double> dayData;
   late List<_HabitEntry> dayDataDetail;
@@ -25,16 +28,21 @@ class VisualizationScreen extends StatefulWidget {
   late double minVal;
   late double maxVal;
   late double diff;
-  VisualizationScreen(Habit habit)
+  VisualizationScreen(Habit habit, HomeController mainController)
   {
+    this.mainController = mainController;
     this.habit = habit;
     entry = new HabitEntry(habitId: habit.habitId, entryDate: DateTime.now(), entryAmount: 0);
     //Query this entry to get all the necessary lists.
     //Map the lists with integer numbers
-    startingDay = entry.firstEntryDate();
-    dayData = entry.dailyHabitEntries();
-    weekData = entry.weeklyHabitEntries();
-    monthData = entry.monthlyHabitEntries();
+    startingDay = mainController.getHabitController!.firstEntryDate(habit);
+    //startingDay = entry.firstEntryDate();
+    dayData = mainController.getHabitController!.dailyHabitEntries(habit);
+    //dayData = entry.dailyHabitEntries();
+    weekData = mainController.getHabitController!.weeklyHabitEntries(habit);
+    //weekData = entry.weeklyHabitEntries();
+    monthData = mainController.getHabitController!.monthlyHabitEntries(habit);
+    //monthData = entry.monthlyHabitEntries();
     dayDataDetail = dayEntryList(dayData);
     weekDataDetail = weekEntryList(weekData);
     monthDataDetail = monthEntryList(monthData);
@@ -107,12 +115,14 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
     List<_HabitEntry> dayDataFinal = widget.dayDataDetail;
     List<_HabitEntry> weekDataFinal = widget.weekDataDetail;
     List<_HabitEntry> monthDataFinal = widget.monthDataDetail;
-    for(int i=0;i<weekDataFinal.length;i++)
-      {
-        print(weekDataFinal.elementAt(i).amount);
-      }
-    print(dayDataFinal.length);
-    print(widget.diff);
+    // for(int i=0;i<weekDataFinal.length;i++)
+    //   {
+    //     print(weekDataFinal.elementAt(i).amount);
+    //   }
+    // print(dayDataFinal.length);
+    // print(weekDataFinal.length);
+    // print(monthDataFinal.length);
+
     return Scaffold(
         backgroundColor: Color(0xFFf4f7f2),
         appBar: AppBar(
@@ -121,7 +131,7 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
               bottom: Radius.circular(50.0),
             ),
           ),
-          title: const Text('Habits',
+          title: const Text('Habit analysis',
               style: TextStyle(
                 fontSize: 30.0,
               )),
@@ -131,7 +141,7 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
         body: ListView(
 
             children: <Widget>[
-              SizedBox(height: 25.0,),
+
           //Initialize the chart widget
               SizedBox(height: 25.0,),
               Padding(
@@ -139,9 +149,8 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                 child: SfCartesianChart(
                     primaryXAxis: DateTimeAxis(
                         interval: 1,
-                        minorTicksPerInterval: 1,
-
-                        autoScrollingDelta: 1,
+                        intervalType: DateTimeIntervalType.days,
+                        autoScrollingDelta: 10,
                         autoScrollingMode: AutoScrollingMode.start,
                         majorGridLines: MajorGridLines(
                           width: 0.0
@@ -179,8 +188,9 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                 child: SfCartesianChart(
                     primaryXAxis: DateTimeAxis(
                         interval: 1,
+                        intervalType: DateTimeIntervalType.days,
                         minorTicksPerInterval: 7,
-                        autoScrollingDelta: 1,
+                        autoScrollingDelta: 10,
                         autoScrollingMode: AutoScrollingMode.start,
                         majorGridLines: MajorGridLines(
                             width: 0.0
@@ -217,8 +227,10 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                 padding: EdgeInsets.all(10.0),
                 child: SfCartesianChart(
                     primaryXAxis: DateTimeAxis(
-                        interval: 30,
-                        autoScrollingDelta: 1,
+                        interval: 1,
+                        autoScrollingDelta: 10,
+                        intervalType: DateTimeIntervalType.months,
+                        minorTicksPerInterval: 1,
                         autoScrollingMode: AutoScrollingMode.start,
                         majorGridLines: MajorGridLines(
                             width: 0.0
