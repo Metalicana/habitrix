@@ -7,10 +7,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/task.dart';
 import 'package:habitrix/screens/task/taskList/components/background.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-
-import '../../../boxes.dart';
 
 class TaskAddForm extends StatefulWidget {
   TaskAddForm({required this.mainController});
@@ -206,7 +203,7 @@ class _TaskAddFormState extends State<TaskAddForm> {
 
                             ),
                             child: Text(
-                                'Add new task',
+                                'Add New Task',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20.0

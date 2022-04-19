@@ -1,17 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:habitrix/controllers/home_controller.dart';
-import 'package:habitrix/screens/habit/habitAdd/habitAddForm.dart';
-import 'package:habitrix/screens/habit/habitEdit/habitEditForm.dart';
-import 'package:habitrix/screens/home/homeScreen.dart';
-import 'package:habitrix/screens/login/loginScreen.dart';
-import 'package:habitrix/screens/register/registerScreen.dart';
-import 'package:habitrix/screens/task/taskAdd/taskAddForm.dart';
-import 'package:habitrix/screens/task/taskItem.dart';
-import 'package:habitrix/screens/task/taskList/taskList.dart';
-import 'package:habitrix/screens/task/taskList/taskListScreen.dart';
 import 'package:habitrix/screens/wrapper.dart';
-import 'package:habitrix/screens/habit/habitList/habitListScreen.dart';
 import 'package:habitrix/services/auth.dart';
 import 'models/habitrixUser.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +10,6 @@ import 'package:habitrix/models/task.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/habit_entry.dart';
 import 'package:habitrix/boxes.dart';
-import 'package:habitrix/screens/visualize/test.dart';
 
 void main() async {
   await Hive.initFlutter();

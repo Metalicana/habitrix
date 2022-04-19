@@ -4,10 +4,7 @@ import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/habit_entry.dart';
 import 'package:habitrix/screens/habit/habitList/components/background.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-
-import '../../../boxes.dart';
 import '../../../constants.dart';
 
 class HabitEntryForm extends StatefulWidget {

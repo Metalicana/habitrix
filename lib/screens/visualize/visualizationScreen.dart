@@ -1,15 +1,10 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/models/habit_entry.dart';
-import 'package:intl/intl.dart';
-
 import '../../constants.dart';
-
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class VisualizationScreen extends StatefulWidget {
   Habit? habit;
@@ -107,7 +102,6 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     // List<_HabitData> data = [
     //   _HabitData(idx: 1, amount:10),
     //   _HabitData(idx: 2, amount:16),

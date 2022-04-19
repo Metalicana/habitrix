@@ -3,17 +3,11 @@
 //It should be able to do a database query
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:habitrix/screens/task/taskList/components/background.dart';
-import 'package:hive/hive.dart';
-import 'package:intl/intl.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
-
-import '../../../boxes.dart';
 
 class HabitAddForm extends StatefulWidget {
   final HomeController mainController;
@@ -206,7 +200,7 @@ class _HabitAddFormState extends State<HabitAddForm> {
 
                               ),
                               child: Text(
-                                'Add habit to list',
+                                'Add New Habit',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20.0

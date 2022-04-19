@@ -41,5 +41,4 @@ class HomeController{
     await Hive.openBox<HabitEntry>(HiveBoxes.habit_entry);
   }
 
-  //TODO: implement initFireBase() and initUtilities()
 }

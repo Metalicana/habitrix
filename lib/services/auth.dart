@@ -1,6 +1,5 @@
 import 'package:habitrix/models/habitrixUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:habitrix/models/task.dart';
 
 class AuthService {
 

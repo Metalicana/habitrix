@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:habitrix/constants.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/task.dart';
 import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
-
 import '../taskItem.dart';
-import 'components/background.dart';
 
 class TaskList extends StatefulWidget {
   late final Box<Task> box;
