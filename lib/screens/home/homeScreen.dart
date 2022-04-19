@@ -79,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                                   MaterialPageRoute(builder: (context) =>  HabitListScreen(mainController: mainController,)),
                                 );
                               },
-                              iconSize: 150.0,
+                              iconSize: 140.0,
                               icon: Image.asset('assets/images/business _ presentation, graph, chart, project, analytics, statistics, woman, people.png')
                           ),
                         ),
@@ -112,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                                   MaterialPageRoute(builder: (context) => TaskListScreen(mainController: mainController,)),
                                 );
                               },
-                              iconSize: 150.0,
+                              iconSize: 140.0,
                               icon: Image.asset('assets/images/e-commerce _ service, receipt, document, confirm, complete, checkmark, server, waiter.png')
                           ),
                         ),
