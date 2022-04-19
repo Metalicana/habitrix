@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:habitrix/controllers/home_controller.dart';
-import 'package:habitrix/screens/habit/habitList/habitListScreen.dart';
+import 'package:habitrix/screens/habit/habitList/habit_list_screen.dart';
 import 'package:habitrix/screens/home/components/background.dart';
-import 'package:habitrix/screens/task/taskList/taskListScreen.dart';
+import 'package:habitrix/screens/task/taskList/task_list_screen.dart';
 import 'package:habitrix/services/auth.dart';
 
 

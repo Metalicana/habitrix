@@ -3,7 +3,7 @@ import 'package:habitrix/constants.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/screens/wrapper.dart';
 import 'package:habitrix/services/auth.dart';
-import 'models/habitrixUser.dart';
+import 'models/habitrix_user.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:habitrix/models/task.dart';

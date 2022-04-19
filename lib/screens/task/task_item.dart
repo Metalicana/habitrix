@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/task.dart';
-import 'package:habitrix/screens/task/taskEdit/taskEditForm.dart';
+import 'package:habitrix/screens/task/taskEdit/task_edit_form.dart';
 import 'package:intl/intl.dart';
 
 class TaskItem extends StatefulWidget {

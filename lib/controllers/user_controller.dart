@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:habitrix/models/habitrixUser.dart';
+import 'package:habitrix/models/habitrix_user.dart';
 
 class UserController{
   final FirebaseAuth _auth = FirebaseAuth.instance;

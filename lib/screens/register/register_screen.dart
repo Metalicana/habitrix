@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitrix/controllers/home_controller.dart';
-import 'package:habitrix/screens/login/loginScreen.dart';
+import 'package:habitrix/screens/login/login_screen.dart';
 import 'package:habitrix/services/auth.dart';
 import '../loading.dart';
 import 'components/background.dart';

@@ -1,4 +1,4 @@
-import 'package:habitrix/models/habitrixUser.dart';
+import 'package:habitrix/models/habitrix_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {

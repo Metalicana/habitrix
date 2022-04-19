@@ -1,6 +1,6 @@
 import 'package:habitrix/controllers/home_controller.dart';
-import 'package:habitrix/screens/login/loginScreen.dart';
-import 'package:habitrix/screens/register/registerScreen.dart';
+import 'package:habitrix/screens/login/login_screen.dart';
+import 'package:habitrix/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 
 

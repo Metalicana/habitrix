@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
 import 'package:hive/hive.dart';
-import '../habitItem.dart';
+import '../habit_item.dart';
 
 class HabitList extends StatefulWidget {
   late final Box<Habit> box;

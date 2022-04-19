@@ -207,7 +207,7 @@ class ErrorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Text(
-        'Incorrect credentials. please try again',
+        'Login failed. Please check your credentials and internet connection, and try again.',
         style: TextStyle(
           color: Colors.red[500]
         ),

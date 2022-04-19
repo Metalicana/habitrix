@@ -1,6 +1,6 @@
 import 'package:habitrix/controllers/home_controller.dart';
-import 'package:habitrix/screens/home/homeScreen.dart';
-import 'package:habitrix/models/habitrixUser.dart';
+import 'package:habitrix/screens/home/home_screen.dart';
+import 'package:habitrix/models/habitrix_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'authenticate.dart';

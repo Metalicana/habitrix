@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:habitrix/constants.dart';
 import 'package:habitrix/controllers/home_controller.dart';
 import 'package:habitrix/models/habit.dart';
-import 'package:habitrix/screens/visualize/visualizationScreen.dart';
-import 'habitEdit/habitEditForm.dart';
-import 'habitEntry/habitEntryForm.dart';
+import 'package:habitrix/screens/visualize/visualization_screen.dart';
+import 'habitEdit/habit_edit_form.dart';
+import 'habitEntry/habit_entry_form.dart';
 
 class HabitItem extends StatefulWidget {
   final Habit habit;
