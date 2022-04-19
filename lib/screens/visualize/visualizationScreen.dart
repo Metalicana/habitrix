@@ -38,6 +38,9 @@ class VisualizationScreen extends StatefulWidget {
     startingDay = mainController.getHabitController!.firstEntryDate(habit);
     //startingDay = entry.firstEntryDate();
     dayData = mainController.getHabitController!.dailyHabitEntries(habit);
+
+
+
     //dayData = entry.dailyHabitEntries();
     weekData = mainController.getHabitController!.weeklyHabitEntries(habit);
     //weekData = entry.weeklyHabitEntries();
@@ -61,15 +64,15 @@ class VisualizationScreen extends StatefulWidget {
         if(val > maxVal)maxVal =val;
       }
     }
-    print(maxVal.toString() + '  ' + minVal.toString());
     diff = (maxVal-minVal)/20.0 ;
     //print('Length: '  + dataMera.length.toString());
 
   }
   List<_HabitEntry> dayEntryList(List<double> input)
   {
+    for(int i=0;i<input.length;i++)print('opk ' + input.elementAt(i).toString());
     List<_HabitEntry> ok = List<_HabitEntry>.generate(input.length, (index) => _HabitEntry(
-        date: DateTime(startingDay!.year, startingDay!.month, startingDay!.day).add(Duration(days: index)),
+        date: startingDay!.add(Duration(days: index)),
         amount: input[index]
       )
     );
@@ -115,10 +118,10 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
     List<_HabitEntry> dayDataFinal = widget.dayDataDetail;
     List<_HabitEntry> weekDataFinal = widget.weekDataDetail;
     List<_HabitEntry> monthDataFinal = widget.monthDataDetail;
-    // for(int i=0;i<weekDataFinal.length;i++)
-    //   {
-    //     print(weekDataFinal.elementAt(i).amount);
-    //   }
+    for(int i=0;i<dayDataFinal.length;i++)
+      {
+        print(dayDataFinal.elementAt(i).amount.toString() );
+      }
     // print(dayDataFinal.length);
     // print(weekDataFinal.length);
     // print(monthDataFinal.length);
@@ -151,6 +154,7 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                         interval: 1,
                         intervalType: DateTimeIntervalType.days,
                         autoScrollingDelta: 10,
+                        minorTicksPerInterval: 10,
                         autoScrollingMode: AutoScrollingMode.start,
                         majorGridLines: MajorGridLines(
                           width: 0.0
@@ -176,8 +180,8 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                           dataSource: dayDataFinal,
                           xValueMapper: (_HabitEntry habitat, _) => habitat.date,
                           yValueMapper: (_HabitEntry habitat, _) => habitat.amount,
-                          name: widget.habit?.habitName,
                           color: kPrimaryColor,
+                          name: 'daily',
                           // Enable data label
                           dataLabelSettings: DataLabelSettings(isVisible: false))
                     ]),
@@ -216,7 +220,7 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                           dataSource: weekDataFinal,
                           xValueMapper: (_HabitEntry habitat, _) => habitat.date,
                           yValueMapper: (_HabitEntry habitat, _) => habitat.amount,
-                          name: widget.habit?.habitName,
+                          name: 'weekly',
                           color: kPrimaryColor,
                           // Enable data label
                           dataLabelSettings: DataLabelSettings(isVisible: false))
@@ -256,7 +260,7 @@ class _VisualizationScreenState extends State<VisualizationScreen> {
                           dataSource: monthDataFinal,
                           xValueMapper: (_HabitEntry habitat, _) => habitat.date,
                           yValueMapper: (_HabitEntry habitat, _) => habitat.amount,
-                          name: widget.habit?.habitName,
+                          name: 'monthly',
                           color: kPrimaryColor,
                           // Enable data label
                           dataLabelSettings: DataLabelSettings(isVisible: false))

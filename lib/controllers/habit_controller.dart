@@ -99,12 +99,14 @@ class HabitController{
     int differenceInDays = daysBetween(now, start);
     List<HabitEntry> relevantEntries = getHabitEntries(habit);
     List<double> recordsList = List<double>.filled(differenceInDays+5, 0);
+    print(differenceInDays.toString() + 'wow ok');
     for(HabitEntry currentEntry in relevantEntries){
       DateTime currentEntryDate = currentEntry.getEntryDate;
       differenceInDays = daysBetween(now,currentEntryDate);
+      print(differenceInDays.toString() + '    ' + currentEntry.getEntryAmount.toString());
       recordsList[differenceInDays]+=currentEntry.getEntryAmount;
     }
-    return recordsList;
+    return recordsList.reversed.toList();
   }
 
   List<double> weeklyHabitEntries(Habit habit){
