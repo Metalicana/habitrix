@@ -33,9 +33,10 @@ class _TaskAddFormState extends State<TaskAddForm> {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _onFormSubmit();
       print("Form Validated");
+      return true;
     } else {
       print("Form Not Validated");
-      return;
+      return false;
     }
   }
   @override
@@ -152,7 +153,7 @@ class _TaskAddFormState extends State<TaskAddForm> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) =>  null,
+                          validator: (val) => deadline == null ? 'Deadline required' : null,
                         ),
                       ),
                       SizedBox(height:10.0),
@@ -193,8 +194,7 @@ class _TaskAddFormState extends State<TaskAddForm> {
                       TextButton(
                           onPressed: (){
                             //validate and pop
-                            validated();
-                            Navigator.pop(context);
+                            if(validated())Navigator.pop(context);
                           },
                           child: Container(
                             width: 300.0,

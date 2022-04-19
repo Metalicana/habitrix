@@ -39,9 +39,10 @@ class _HabitAddFormState extends State<HabitAddForm> {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _onFormSubmit();
       print("Form Validated");
+      return true;
     } else {
       print("Form Not Validated");
-      return;
+      return false;
     }
   }
   @override
@@ -105,7 +106,7 @@ class _HabitAddFormState extends State<HabitAddForm> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.isEmpty ? 'Habit name is required' : null,
+                          validator: (val) => name == ''? 'Habit name is required' : null,
                         ),
                       ),
                       SizedBox(height: size.height * 0.03),
@@ -139,7 +140,7 @@ class _HabitAddFormState extends State<HabitAddForm> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.isEmpty ? 'Unit is required' : null,
+                          validator: (val) => unit=='' ? 'Unit is required' : null,
                         ),
                       ),
                       SizedBox(height: size.height * 0.03),
@@ -192,7 +193,7 @@ class _HabitAddFormState extends State<HabitAddForm> {
                       TextButton(
                           onPressed: (){
                             //validate and pop
-                            validated();
+                            if(validated())
                             Navigator.pop(context);
                           },
                           child: Container(

@@ -29,16 +29,18 @@ class _HabitEditFormState extends State<HabitEditForm> {
   String error = '';
   bool loading = false;
   // text field state
-  String name = '';
-  String unit = '';
+  String? name = null;
+  String? unit = null;
   String dropdownValue = '';
   validated() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _onFormSubmit();
+
       print("Form Validated");
+      return true;
     } else {
       print("Form Not Validated");
-      return;
+      return false;
     }
   }
   @override
@@ -78,7 +80,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
 
                           cursorColor: Colors.green,
                           decoration: InputDecoration(
-                              hintText: name=='' ? widget.habit.habitName : name,
+                              hintText: name==null ? widget.habit.habitName : name!,
                               icon: Icon(
                                 Icons.edit,
                                 color: Colors.grey,
@@ -102,7 +104,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) =>  null,
+                          validator: (val) =>  name=='' ? 'Habit name required' : null,
                         ),
                       ),
                       SizedBox(height:10.0),
@@ -113,7 +115,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
 
                           cursorColor: Colors.green,
                           decoration: InputDecoration(
-                              hintText: unit == '' ? widget.habit.unit : unit,
+                              hintText: unit == null ? widget.habit.unit : unit,
                               icon: Icon(
                                 Icons.linear_scale,
                                 color: Colors.grey,
@@ -137,7 +139,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => null
+                          validator: (val) => unit == '' ? 'Unit required' : null,
                         ),
                       ),
                       SizedBox(height: size.height * 0.03),
@@ -190,7 +192,7 @@ class _HabitEditFormState extends State<HabitEditForm> {
                       TextButton(
                           onPressed: (){
                             //validate and pop
-                            validated();
+                            if(validated())
                             Navigator.pop(context);
                           },
                           child: Container(
@@ -253,10 +255,10 @@ class _HabitEditFormState extends State<HabitEditForm> {
   {
     //hash name and timestamp
     var timestamp = utf8.encode(DateTime.now().toString());
-    var nameHash = utf8.encode(name);
+    var nameHash = utf8.encode(name!);
     var digest = sha256.convert(nameHash + timestamp);
-    print("Digest as bytes: ${digest.bytes}");
-    print("Digest as hex string: $digest");
+    // print("Digest as bytes: ${digest.bytes}");
+    // print("Digest as hex string: $digest");
 
     return "";
   }
@@ -266,142 +268,10 @@ class _HabitEditFormState extends State<HabitEditForm> {
     String hashID = widget.habit.habitId;
     widget.mainController.getHabitController!.editHabit(widget.habit, Habit(
               habitId: hashID,
-              habitName: name=='' ? widget.habit.habitName : name,
-              unit: unit == '' ? widget.habit.unit  : unit,
+              habitName: name==null ? widget.habit.habitName : name!,
+              unit: unit == null ? widget.habit.unit  : unit!,
               type: dropdownValue == '' ? widget.habit.type : dropdownValue,
             ));
-    // habitBox.add(
-    //     Habit(
-    //       habitId: hashID,
-    //       habitName: name=='' ? widget.habit.habitName : name,
-    //       unit: unit == '' ? widget.habit.unit  : unit,
-    //       type: dropdownValue == '' ? widget.habit.type : dropdownValue,
-    //     )
-    // );
-    //widget.habit.delete();
   }
 }
 
-// class TaskAddForm extends StatefulWidget {
-//   const TaskAddForm({Key? key}) : super(key: key);
-//
-//   @override
-//   _TaskAddFormState createState() => _TaskAddFormState();
-// }
-//
-// class _TaskAddFormState extends State<TaskAddForm> {
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     final _formKey = GlobalKey<FormState>();
-//
-//     String error = '';
-//
-//     bool loading = false;
-//
-//     // text field state
-//     String email = '';
-//
-//     String password = '';
-//
-//     DateTime deadline = DateTime.now();
-//     return Scaffold(
-//       appBar: AppBar(
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.vertical(
-//             bottom: Radius.circular(50.0),
-//           ),
-//         ),
-//         title: const Text(
-//             'Add a new task',
-//             style: TextStyle(
-//               fontSize: 30.0,
-//             )
-//         ),
-//         toolbarHeight: 220,
-//         backgroundColor: kPrimaryColor,
-//         actions: <Widget>[
-//           IconButton(
-//             icon: const Icon(Icons.logout),
-//             tooltip: 'logout',
-//             onPressed: ()  {
-//
-//             },
-//           ),
-//         ],
-//       ),
-//       body: Form(
-//             key: _formKey,
-//             child: Column(
-//               children: <Widget>[
-//                 SizedBox(height: 100.0),
-//                 Container(
-//                   padding: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-//                   width: 400.0,
-//                   child: TextFormField(
-//                         cursorColor: Colors.green,
-//                         decoration: InputDecoration(
-//                         hintText: 'Task Name',
-//                         icon: Icon(Icons.drive_file_rename_outline),
-//                         contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(30.0),
-//                         ),
-//                         focusedBorder: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(30.0),
-//                           borderSide: const BorderSide(color: Colors.lightGreen, width: 2.0),
-//                         )
-//                     ),
-//                     onChanged: (val) {
-//                       setState(() => email = val);
-//                     },
-//                     onSaved: (String? value) {
-//                       // This optional block of code can be used to run
-//                       // code when the user saves the form.
-//                     },
-//                     validator: (val) => val!.isEmpty ? 'Enter non-empty task name' : null,
-//                   ),
-//                 ),
-//                 SizedBox(height: 10.0),
-//                 Container(
-//                   padding: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-//                   width: 400.0,
-//                   child: TextFormField(
-//                     cursorColor: Colors.green,
-//                     decoration: InputDecoration(
-//                         hintText: 'Deadline',
-//                         icon: Icon(Icons.calendar_today_outlined),
-//                         contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(30.0),
-//                         ),
-//                         focusedBorder: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(30.0),
-//                           borderSide: const BorderSide(color: Colors.lightGreen, width: 2.0),
-//                         )
-//                     ),
-//
-//                     onTap: (){
-//                       DatePicker.showDatePicker(context,
-//                           showTitleActions: true,
-//                           minTime: DateTime(2018,2,5),
-//                           onChanged: (date) {
-//                             print('change $date');
-//                           }, onConfirm: (date) {
-//                             print('confirm $date');
-//                           }, currentTime: DateTime.now(), locale: LocaleType.en);
-//                     },
-//                     onSaved: (String? value) {
-//                       // This optional block of code can be used to run
-//                       // code when the user saves the form.
-//                     },
-//                     validator: (val) => val!.isEmpty ? 'Enter non-empty task name' : null,
-//                   ),
-//                 ),
-//               ],
-//             )
-//         ),
-//
-//     );
-//   }
-// }

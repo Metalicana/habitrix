@@ -26,8 +26,6 @@ class _TaskEditFormState extends State<TaskEditForm> {
   String error = '';
   bool loading = false;
   // text field state
-  String email = '';
-  String password = '';
   DateTime ?deadline = null;
   double ?importance = null;
   double ?difficulty = null;
@@ -36,9 +34,10 @@ class _TaskEditFormState extends State<TaskEditForm> {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _onFormSubmit();
       print("Form Validated");
+      return true;
     } else {
       print("Form Not Validated");
-      return;
+      return false;
     }
   }
   @override
@@ -97,12 +96,13 @@ class _TaskEditFormState extends State<TaskEditForm> {
                           ),
                           onChanged: (val) {
                             setState(() => name = val);
+                            print(name);
                           },
                           onSaved: (String? value) {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) =>  null,
+                          validator: (val) =>  name == '' ? 'Task name required' : null,
                         ),
                       ),
                       SizedBox(height: size.height * 0.01),
@@ -199,7 +199,7 @@ class _TaskEditFormState extends State<TaskEditForm> {
                       TextButton(
                           onPressed: (){
                             //validate and pop
-                            validated();
+                            if(validated())
                             Navigator.pop(context);
                           },
                           child: Container(
@@ -238,7 +238,7 @@ class _TaskEditFormState extends State<TaskEditForm> {
 
     Task editedTask = Task(
               taskName: name==null ? widget.task.taskName : name!,
-              deadline: deadline==null? widget.task.deadline : deadline!,
+              deadline: deadline==null ? widget.task.deadline : deadline!,
               difficulty: difficulty==null? widget.task.difficulty:difficulty!.round(),
               importance: importance==null? widget.task.importance:importance!.round(),
             );

@@ -24,20 +24,16 @@ class _HabitEntryFormState extends State<HabitEntryForm> {
   String error = '';
   bool loading = false;
   // text field state
-  String name = '';
-  double? unitAmount;
-  double importance = 20;
-  double difficulty = 20;
-  String dropdownValue = '';
-
+  double? unitAmount=null;
   DateTime? entryDate = null;
   validated() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _onFormSubmit();
       print("Form Validated");
+      return true;
     } else {
       print("Form Not Validated");
-      return;
+      return false;
     }
   }
   @override
@@ -101,7 +97,7 @@ class _HabitEntryFormState extends State<HabitEntryForm> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) => val!.isEmpty ? 'Unit amount unspecified' : null,
+                          validator: (val) => unitAmount == null ? 'Unit amount unspecified' : null,
                         ),
                       ),
                       SizedBox(height:10.0),
@@ -144,14 +140,14 @@ class _HabitEntryFormState extends State<HabitEntryForm> {
                             // This optional block of code can be used to run
                             // code when the user saves the form.
                           },
-                          validator: (val) =>  null,
+                          validator: (val) => entryDate == null? 'Must have entry date' : null,
                         ),
                       ),
                       SizedBox(height:10.0),
                       TextButton(
                           onPressed: (){
                             //validate and pop
-                            validated();
+                            if(validated())
                             Navigator.pop(context);
                           },
                           child: Container(
